@@ -16,6 +16,7 @@ export default class CreateWorkout extends Component {
         this.onChangeWorkoutResponsible = this.onChangeWorkoutResponsible.bind(this);
         this.onChangeWorkoutDifficulty = this.onChangeWorkoutDifficulty.bind(this);
         this.onChangeWorkoutTimesCompleted = this.onChangeWorkoutTimesCompleted.bind(this);
+        this.onChangeWorkoutCompletedDate = this.onChangeWorkoutCompletedDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -44,6 +45,12 @@ export default class CreateWorkout extends Component {
         });
     }
 
+    onChangeWorkoutCompletedDate(e) {
+        this.setState({
+            workout_completed_date: e.target.value
+        });
+    }
+
     onSubmit(e) {
         // backend not setup yet
         e.preventDefault();
@@ -53,6 +60,14 @@ export default class CreateWorkout extends Component {
         console.log(`Workout Responsible: ${this.state.workout_responsible}`);
         console.log(`Workout Difficulty: ${this.state.workout_difficulty}`);
         console.log(`Times Workout Completed: ${this.state.workout_times_completed}`);
+
+        const newWorkout = {
+            workout_description: this.state.workout_description,
+            workout_responsible: this.state.workout_responsible,
+            workout_difficulty: this.state.workout_difficulty,
+            workout_times_completed: this.state.workout_times_completed,
+            workout_completed_date: this.state.workout_completed_date
+        };
         
         // reset form
         this.setState({
@@ -60,7 +75,7 @@ export default class CreateWorkout extends Component {
             workout_responsible: '',
             workout_difficulty: '',
             workout_times_completed: 0,
-            workout_completed_date: ''
+            workout_completed_date: Date.now
         })
     }
 
@@ -130,6 +145,15 @@ export default class CreateWorkout extends Component {
                                 min="0"
                                 value={this.state.workout_times_completed}
                                 onChange={this.onChangeWorkoutTimesCompleted}
+                                />
+                    </div>
+                    <div className="form-group">
+                        <label>Date Last Completed: </label>
+                        <input 
+                                type="string" 
+                                className="form-control"
+                                value={this.state.workout_completed_date}
+                                onChange={this.onChangeWorkoutCompletedDate}
                                 />
                     </div>
 
