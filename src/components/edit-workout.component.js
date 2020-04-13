@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 export default class EditWorkout extends Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ export default class EditWorkout extends Component {
         this.onChangeWorkoutTimesCompleted = this.onChangeWorkoutTimesCompleted.bind(this);
         this.onChangeWorkoutCompletedDate = this.onChangeWorkoutCompletedDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.deleteWorkout = this.deleteWorkout.bind(this);
 
 		this.state = {
 			workout_description: '',
@@ -70,7 +72,6 @@ export default class EditWorkout extends Component {
     }
 
     onSubmit(e) {
-        // backend not setup yet
         e.preventDefault();
 
         const obj = {
@@ -84,7 +85,26 @@ export default class EditWorkout extends Component {
        	axios.post('http://localhost:4000/workouts/update/' + this.props.match.params.id, obj)
        		.then(res => console.log(res.data));
 
-       	this.props.history.push('');
+       	this.props.history.push('/');
+    }
+
+    deleteWorkout(e) {
+		const obj = {
+            workout_description: this.state.workout_description,
+            workout_responsible: this.state.workout_responsible,
+            workout_difficulty: this.state.workout_difficulty,
+            workout_times_completed: this.state.workout_times_completed,
+            workout_completed_date: this.state.workout_completed_date
+        };
+
+		axios.delete('http://localhost:4000/workouts/delete/' + this.props.match.params.id, obj)
+			.then((res) => {
+                console.log('Workout successfully deleted!')
+            }).catch((error) => {
+                console.log(error)
+            })
+        this.props.history.push('/');
+
     }
 
 	render() {
@@ -168,6 +188,7 @@ export default class EditWorkout extends Component {
                     <div className="form-group">
                         <input type="submit" value="Update workout" className="btn btn-primary" />
                     </div>
+                    <Button size='sm' variant='danger' onClick={this.deleteWorkout}>Delete</Button>
                 </form>
 			</div>
 

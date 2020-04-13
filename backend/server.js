@@ -64,6 +64,19 @@ workoutRoutes.route('/add').post((req, res) => {
 		});
 });
 
+// delete workout
+workoutRoutes.route('/delete/:id').delete((req, res, next) => {
+	Workout.findByIdAndRemove(req.params.id, (err, workout) => {
+		if (err) {
+			return next(err);
+		} else {
+			res.status(200).json({
+				msg: workout
+			})
+		}
+	})
+})
+
 // update endpoint route
 workoutRoutes.route('/update/:id').post((req, res) => {
 	Workout.findById(req.params.id, (err, workout) => {
