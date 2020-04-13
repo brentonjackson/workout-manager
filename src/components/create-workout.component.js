@@ -150,7 +150,7 @@ export default class CreateWorkout extends Component {
                     <div className="form-group">
                         <label>Date Last Completed: </label>
                         <input 
-                                type="string" 
+                                type="date" 
                                 className="form-control"
                                 value={this.state.workout_completed_date}
                                 onChange={this.onChangeWorkoutCompletedDate}
