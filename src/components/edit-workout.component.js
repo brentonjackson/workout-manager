@@ -97,13 +97,17 @@ export default class EditWorkout extends Component {
             workout_completed_date: this.state.workout_completed_date
         };
 
-		axios.delete('http://localhost:4000/workouts/delete/' + this.props.match.params.id, obj)
-			.then((res) => {
-                console.log('Workout successfully deleted!')
-            }).catch((error) => {
-                console.log(error)
-            })
-        this.props.history.push('/');
+		// axios.delete('http://localhost:4000/workouts/delete/' + this.props.match.params.id, obj)
+		// 	.then((res) => {
+  //               console.log('Workout successfully deleted!')
+  //           }).catch((error) => {
+  //               console.log(error)
+  //           })
+  //       this.props.history.push('/');
+        axios.delete('http://localhost:4000/workouts/delete/' + this.props.match.params.id, obj)
+       		.then(res => console.log(res.data));
+
+       	this.props.history.push('/');
 
     }
 

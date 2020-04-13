@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class CreateWorkout extends Component {
 	constructor(props) {
@@ -54,13 +55,7 @@ export default class CreateWorkout extends Component {
     onSubmit(e) {
         // backend not setup yet
         e.preventDefault();
-        
-        console.log(`Form submitted:`);
-        console.log(`Workout Description: ${this.state.workout_description}`);
-        console.log(`Workout Responsible: ${this.state.workout_responsible}`);
-        console.log(`Workout Difficulty: ${this.state.workout_difficulty}`);
-        console.log(`Times Workout Completed: ${this.state.workout_times_completed}`);
-
+       
         const newWorkout = {
             workout_description: this.state.workout_description,
             workout_responsible: this.state.workout_responsible,
@@ -68,6 +63,11 @@ export default class CreateWorkout extends Component {
             workout_times_completed: this.state.workout_times_completed,
             workout_completed_date: this.state.workout_completed_date
         };
+
+        axios.post('http://localhost:4000/workouts/add', newWorkout)
+            .then(res => console.log(res.data));
+
+        this.props.history.push('/');
         
         // reset form
         this.setState({
