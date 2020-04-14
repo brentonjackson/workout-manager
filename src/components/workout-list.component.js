@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
+import {Button, Card, CardDeck, Container} from 'react-bootstrap';
 
 
 
 const Workout = props => (
+/*
 	<tr>
 		<td>{props.workout.workout_description}</td>
 		<td>{props.workout.workout_responsible}</td>
@@ -14,10 +15,26 @@ const Workout = props => (
 		<td>{props.workout.workout_completed_date}</td>
 		<td>
 			<Link to={'edit/' + props.workout._id}>Edit</Link>
-
-			
 		</td>
 	</tr>
+*/	
+	<Card>
+		<Card.Body>
+			<Card.Title>{props.workout.workout_title}</Card.Title>
+			<Card.Subtitle className="mb-4 text-muted">{props.workout.workout_tags}</Card.Subtitle>
+			<Card.Text>Description: {props.workout.workout_description}</Card.Text>
+			<Card.Text>For: {props.workout.workout_responsible}</Card.Text>
+			<Card.Text>Difficulty Level: {props.workout.workout_difficulty}</Card.Text>
+			<Card.Text>Times Completed: {props.workout.workout_times_completed}</Card.Text>
+			<Card.Link>
+				<Link to={'edit/'+ props.workout._id}>Edit</Link>
+			</Card.Link>
+		</Card.Body>
+		<Card.Footer>
+				<small className="text-muted">Last completed on: {props.workout.workout_completed_date}</small>
+		</Card.Footer>
+	</Card>
+
 
 
 )
@@ -31,6 +48,8 @@ export default class WorkoutList extends Component {
 
 	deleteWorkout(e) {
 		const obj = {
+			workout_title: this.state.workout_title,
+			workout_tags: this.state.workout_tags,
             workout_description: this.state.workout_description,
             workout_responsible: this.state.workout_responsible,
             workout_difficulty: this.state.workout_difficulty,
@@ -67,27 +86,13 @@ export default class WorkoutList extends Component {
 
 	render() {
 		return (
-			<div>
-				<h3> Workout List</h3>
-				<table className="table table-striped" style={{marginTop: 20}} >
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Responsible</th>
-							<th>Difficulty</th>
-							<th>Times Completed</th>
-							<th>Last Completed</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						{this.workoutList()}
-
-					</tbody>
-
-				</table>
+			<Container>
+				<h3 className="text-center"> Workout Hub</h3>
+				<CardDeck>
+					{this.workoutList()}
+				</CardDeck>
 				
-			</div>
+			</Container>
 
 		)
 	}

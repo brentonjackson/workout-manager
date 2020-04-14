@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Workout  = new Schema({
-    workout_description: {
+    workout_title: {
         type: String
+    },
+    workout_tags: {
+        type: [String]
+    },
+    workout_description: {
+        type: [String]
     },
     workout_responsible: {
     	type: String

@@ -6,13 +6,17 @@ export default class CreateWorkout extends Component {
         super(props);
 
         this.state = {
-            workout_description: '',
+            workout_title: '',
+            workout_tags: [''],
+            workout_description: [''],
             workout_responsible: '',
             workout_difficulty: '',
             workout_times_completed: 0,
             workout_completed_date: ''
         }
 
+        this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
+        this.onChangeWorkoutTags = this.onChangeWorkoutTags.bind(this);
         this.onChangeWorkoutDescription = this.onChangeWorkoutDescription.bind(this);
         this.onChangeWorkoutResponsible = this.onChangeWorkoutResponsible.bind(this);
         this.onChangeWorkoutDifficulty = this.onChangeWorkoutDifficulty.bind(this);
@@ -22,6 +26,18 @@ export default class CreateWorkout extends Component {
     }
 
     // methods to update state
+    onChangeWorkoutTitle(e) {
+        this.setState({
+            workout_title: e.target.value
+        });
+    }
+
+    onChangeWorkoutTags(e) {
+        this.setState({
+            workout_tags: e.target.value
+        });
+    }
+
     onChangeWorkoutDescription(e) {
         this.setState({
             workout_description: e.target.value
@@ -57,6 +73,8 @@ export default class CreateWorkout extends Component {
         e.preventDefault();
        
         const newWorkout = {
+            workout_title: this.state.workout_title,
+            workout_tags: this.state.workout_tags,
             workout_description: this.state.workout_description,
             workout_responsible: this.state.workout_responsible,
             workout_difficulty: this.state.workout_difficulty,
@@ -71,7 +89,9 @@ export default class CreateWorkout extends Component {
         
         // reset form
         this.setState({
-            workout_description: '',
+            workout_title: '',
+            workout_tags: [''],
+            workout_description: [''],
             workout_responsible: '',
             workout_difficulty: '',
             workout_times_completed: 0,
@@ -85,8 +105,16 @@ export default class CreateWorkout extends Component {
 				<h3>Create New Workout</h3>
 				<form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <label>Description: </label>
+                        <label>Title: </label>
                         <input  type="text"
+                                className="form-control"
+                                value={this.state.workout_title}
+                                onChange={this.onChangeWorkoutTitle}
+                                />
+                    </div>
+                    <div className="form-group"> 
+                        <label>Description: </label>
+                        <textarea  name="description"
                                 className="form-control"
                                 value={this.state.workout_description}
                                 onChange={this.onChangeWorkoutDescription}
@@ -156,7 +184,14 @@ export default class CreateWorkout extends Component {
                                 onChange={this.onChangeWorkoutCompletedDate}
                                 />
                     </div>
-
+                    <div className="form-group"> 
+                        <label>Tags: </label>
+                        <input  type="text"
+                                className="form-control"
+                                value={this.state.workout_tags}
+                                onChange={this.onChangeWorkoutTags}
+                                />
+                    </div>
                     <div className="form-group">
                         <input type="submit" value="Create workout" className="btn btn-primary" />
                     </div>

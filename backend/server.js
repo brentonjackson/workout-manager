@@ -83,6 +83,8 @@ workoutRoutes.route('/update/:id').post((req, res) => {
 		if (!workout) {
 			res.status(404).send('data is not found');
 		} else {
+			workout.workout_title = req.body.workout_title;
+			workout.workout_tags = req.body.workout_tags;
 			workout.workout_description = req.body.workout_description;
 			workout.workout_responsible = req.body.workout_responsible;
 			workout.workout_difficulty = req.body.workout_difficulty;
