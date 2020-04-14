@@ -16,7 +16,11 @@ const mongoose = require('mongoose');
 let Workout = require('./workout.model');
 const PORT = 4000;
 
-app.use(cors());
+// app.use(cors());
+app.use(express.static(path.join(_dirname, "../build/")));
+app.get("*", (req,res)=> {
+	res.sendFile(path.join(_dirname + "../build/index.html"));
+});
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/workouts', { useNewUrlParser: true});

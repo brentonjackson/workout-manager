@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import nav from 'react-bootstrap/nav';
 import styled from 'styled-components';
 
 import CreateWorkout from "./components/create-workout.component";

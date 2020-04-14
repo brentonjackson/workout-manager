@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {Button, Card, CardDeck, Container} from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 import Dashboard from "./Dashboard";
 import styled from 'styled-components';
 
