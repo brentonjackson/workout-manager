@@ -17,7 +17,7 @@ const Screen = styled.div`
 function Dashboard(props) {
 	const quotes = [
 		{
-			quote: 'Whatever the mind can believe, the mind can achieve.',
+			quote: 'Whatever the mind can conceive and believe, the mind can achieve.',
 			author: 'Napoleon Hill'
 		},
 	]
