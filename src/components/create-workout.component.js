@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const WorkoutContainer = styled.div`
+    height: 100vh;
+    margin-top: 7.5em;
+    color: white;
+`
 
 export default class CreateWorkout extends Component {
 	constructor(props) {
@@ -101,7 +108,7 @@ export default class CreateWorkout extends Component {
 
 	render() {
 		return (
-			<div style={{marginTop: 10}}>
+			<WorkoutContainer>
 				<h3>Create New Workout</h3>
 				<form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
@@ -196,7 +203,7 @@ export default class CreateWorkout extends Component {
                         <input type="submit" value="Create workout" className="btn btn-primary" />
                     </div>
                 </form>
-			</div>
+			</WorkoutContainer>
 
 		)
 	}

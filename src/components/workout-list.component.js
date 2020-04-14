@@ -2,22 +2,16 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {Button, Card, CardDeck, Container} from 'react-bootstrap';
+import Dashboard from "./Dashboard";
+import styled from 'styled-components';
 
+const WorkoutContainer = styled(Container)`
+	height: 100vh;
+	padding-top: 25px;
+`
 
 
 const Workout = props => (
-/*
-	<tr>
-		<td>{props.workout.workout_description}</td>
-		<td>{props.workout.workout_responsible}</td>
-		<td>{props.workout.workout_difficulty}</td>
-		<td>{props.workout.workout_times_completed}</td>
-		<td>{props.workout.workout_completed_date}</td>
-		<td>
-			<Link to={'edit/' + props.workout._id}>Edit</Link>
-		</td>
-	</tr>
-*/	
 	<Card>
 		<Card.Body>
 			<Card.Title>{props.workout.workout_title}</Card.Title>
@@ -34,9 +28,6 @@ const Workout = props => (
 				<small className="text-muted">Last completed on: {props.workout.workout_completed_date}</small>
 		</Card.Footer>
 	</Card>
-
-
-
 )
 
 export default class WorkoutList extends Component {
@@ -46,6 +37,7 @@ export default class WorkoutList extends Component {
 		this.state = {workouts: []};
 	}
 
+	// method to delete entries
 	deleteWorkout(e) {
 		const obj = {
 			workout_title: this.state.workout_title,
@@ -64,10 +56,7 @@ export default class WorkoutList extends Component {
                 console.log(error)
             })
         this.props.history.push('/');
-
     }
-
-	
 
 	componentDidMount() {
         axios.get('http://localhost:4000/workouts/')
@@ -79,20 +68,23 @@ export default class WorkoutList extends Component {
             })
     }
 
+    // populate cards with workouts from database
     workoutList() {
     	return this.state.workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
     }
     
-
 	render() {
 		return (
-			<Container>
-				<h3 className="text-center"> Workout Hub</h3>
+			<div>
+			<Dashboard />
+			<WorkoutContainer>
+				<h3 className="text-center text-white" style={{marginBottom: "25px"}}> Workout Hub</h3>
 				<CardDeck>
 					{this.workoutList()}
 				</CardDeck>
 				
-			</Container>
+			</WorkoutContainer>
+			</div>
 
 		)
 	}
