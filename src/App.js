@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import navbar from 'react-bootstrap/Navbar';
+import 'react-bootstrap/nav'
 import styled from 'styled-components';
 
 import CreateWorkout from "./components/create-workout.component";
