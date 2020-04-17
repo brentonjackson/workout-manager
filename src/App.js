@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import nav from 'react-bootstrap';
 import styled from 'styled-components';
 
 import CreateWorkout from "./components/create-workout.component";
@@ -33,7 +34,7 @@ class App extends Component {
                   <Link to="/create" className="nav-link">Create Workout</Link>
                 </li>
               </ul>
-            </div> 
+            </div>
           </Nav>
           <br/>
           <Route path="/" exact component={WorkoutList} />
@@ -42,7 +43,7 @@ class App extends Component {
         </MainDiv>
       </Router>
     );
-  } 
+  }
 }
 
 export default App;
