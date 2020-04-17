@@ -21,7 +21,7 @@ let Workout  = new Schema({
     	type: Number
     },
     workout_completed_date: {
-    	type: Date, default: Date.now
+    	type: Date, default: (new Date()).toUTCString()
     }
 });
 

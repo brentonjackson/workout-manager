@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {Button, Card, CardDeck, Container} from 'react-bootstrap';
+import { Card, CardDeck, Container} from 'react-bootstrap';
 import Dashboard from "./Dashboard";
 import styled from 'styled-components';
 
@@ -20,12 +20,12 @@ const Workout = props => (
 			<Card.Text>For: {props.workout.workout_responsible}</Card.Text>
 			<Card.Text>Difficulty Level: {props.workout.workout_difficulty}</Card.Text>
 			<Card.Text>Times Completed: {props.workout.workout_times_completed}</Card.Text>
-			<Card.Link>
+			{/*<Card.Link>*/}
 				<Link to={'edit/'+ props.workout._id}>Edit</Link>
-			</Card.Link>
+			{/*</Card.Link>*/}
 		</Card.Body>
 		<Card.Footer>
-				<small className="text-muted">Last completed on: {props.workout.workout_completed_date}</small>
+				<small className="text-muted">Last completed on: {(props.workout.workout_completed_date)}</small>
 		</Card.Footer>
 	</Card>
 )
@@ -72,7 +72,7 @@ export default class WorkoutList extends Component {
     workoutList() {
     	return this.state.workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
     }
-    
+
 	render() {
 		return (
 			<div>
@@ -82,7 +82,7 @@ export default class WorkoutList extends Component {
 				<CardDeck>
 					{this.workoutList()}
 				</CardDeck>
-				
+
 			</WorkoutContainer>
 			</div>
 

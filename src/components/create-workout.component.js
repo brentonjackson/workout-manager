@@ -19,7 +19,7 @@ export default class CreateWorkout extends Component {
             workout_responsible: '',
             workout_difficulty: '',
             workout_times_completed: 0,
-            workout_completed_date: ''
+            workout_completed_date: (new Date()).toUTCString()
         }
 
         this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
@@ -71,14 +71,14 @@ export default class CreateWorkout extends Component {
 
     onChangeWorkoutCompletedDate(e) {
         this.setState({
-            workout_completed_date: e.target.value
+            workout_completed_date: e.target.value.toUTCString()
         });
     }
 
     onSubmit(e) {
         // backend not setup yet
         e.preventDefault();
-       
+
         const newWorkout = {
             workout_title: this.state.workout_title,
             workout_tags: this.state.workout_tags,
@@ -93,7 +93,7 @@ export default class CreateWorkout extends Component {
             .then(res => console.log(res.data));
 
         this.props.history.push('/');
-        
+
         // reset form
         this.setState({
             workout_title: '',
@@ -102,7 +102,7 @@ export default class CreateWorkout extends Component {
             workout_responsible: '',
             workout_difficulty: '',
             workout_times_completed: 0,
-            workout_completed_date: Date.now
+            workout_completed_date: (new Date()).toUTCString()
         })
     }
 
@@ -111,7 +111,7 @@ export default class CreateWorkout extends Component {
 			<WorkoutContainer>
 				<h3>Create New Workout</h3>
 				<form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Title: </label>
                         <input  type="text"
                                 className="form-control"
@@ -119,7 +119,7 @@ export default class CreateWorkout extends Component {
                                 onChange={this.onChangeWorkoutTitle}
                                 />
                     </div>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Description: </label>
                         <textarea  name="description"
                                 className="form-control"
@@ -129,8 +129,8 @@ export default class CreateWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Responsible: </label>
-                        <input 
-                                type="text" 
+                        <input
+                                type="text"
                                 className="form-control"
                                 value={this.state.workout_responsible}
                                 onChange={this.onChangeWorkoutResponsible}
@@ -139,34 +139,34 @@ export default class CreateWorkout extends Component {
                     <div className="form-group">
                     	<label>Difficulty: </label><br />
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyEasy" 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyEasy"
                                     value="Easy"
-                                    checked={this.state.workout_difficulty==='Easy'} 
+                                    checked={this.state.workout_difficulty==='Easy'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Easy</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyMedium" 
-                                    value="Medium" 
-                                    checked={this.state.workout_difficulty==='Medium'} 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyMedium"
+                                    value="Medium"
+                                    checked={this.state.workout_difficulty==='Medium'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Medium</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyHard" 
-                                    value="Hard" 
-                                    checked={this.state.workout_difficulty==='Hard'} 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyHard"
+                                    value="Hard"
+                                    checked={this.state.workout_difficulty==='Hard'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Hard</label>
@@ -174,8 +174,8 @@ export default class CreateWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Times Completed: </label>
-                        <input 
-                                type="number" 
+                        <input
+                                type="number"
                                 className="form-control"
                                 min="0"
                                 value={this.state.workout_times_completed}
@@ -184,14 +184,14 @@ export default class CreateWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Date Last Completed: </label>
-                        <input 
-                                type="date" 
+                        <input
+                                type="date"
                                 className="form-control"
                                 value={this.state.workout_completed_date}
                                 onChange={this.onChangeWorkoutCompletedDate}
                                 />
                     </div>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Tags: </label>
                         <input  type="text"
                                 className="form-control"

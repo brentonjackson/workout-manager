@@ -23,7 +23,7 @@ export default class EditWorkout extends Component {
 			workout_responsible: '',
 			workout_difficulty: '',
 			workout_times_complecated: 0,
-			workout_completed_date: ''
+			workout_completed_date: (new Date()).toString()
 
 		}
 	}
@@ -39,7 +39,7 @@ export default class EditWorkout extends Component {
                     workout_difficulty: response.data.workout_difficulty,
                     workout_times_complecated: response.data.workout_times_complecated,
                     workout_completed_date: response.data.workout_completed_date
-                })   
+                })
             })
             .catch(function (error) {
                 console.log(error);
@@ -101,7 +101,7 @@ export default class EditWorkout extends Component {
             workout_times_completed: this.state.workout_times_completed,
             workout_completed_date: this.state.workout_completed_date
         };
-       	console.log(obj);
+       	console.log(obj.workout_completed_date);
        	axios.post('http://localhost:4000/workouts/update/' + this.props.match.params.id, obj)
        		.then(res => console.log(res.data));
 
@@ -138,7 +138,7 @@ export default class EditWorkout extends Component {
 			<div style={{marginTop: 10}}>
 				<h3>Update Workout</h3>
 				<form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Title: </label>
                         <input  type="text"
                                 className="form-control"
@@ -146,7 +146,7 @@ export default class EditWorkout extends Component {
                                 onChange={this.onChangeWorkoutTitle}
                                 />
                     </div>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Description: </label>
                         <textarea style={{whiteSpace: "pre-wrap"}}  name="description"
                                 className="form-control"
@@ -156,8 +156,8 @@ export default class EditWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Responsible: </label>
-                        <input 
-                                type="text" 
+                        <input
+                                type="text"
                                 className="form-control"
                                 value={this.state.workout_responsible}
                                 onChange={this.onChangeWorkoutResponsible}
@@ -166,34 +166,34 @@ export default class EditWorkout extends Component {
                     <div className="form-group">
                     	<label>Difficulty: </label><br />
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyEasy" 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyEasy"
                                     value="Easy"
-                                    checked={this.state.workout_difficulty==='Easy'} 
+                                    checked={this.state.workout_difficulty==='Easy'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Easy</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyMedium" 
-                                    value="Medium" 
-                                    checked={this.state.workout_difficulty==='Medium'} 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyMedium"
+                                    value="Medium"
+                                    checked={this.state.workout_difficulty==='Medium'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Medium</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="difficultyOptions" 
-                                    id="difficultyHard" 
-                                    value="Hard" 
-                                    checked={this.state.workout_difficulty==='Hard'} 
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="difficultyOptions"
+                                    id="difficultyHard"
+                                    value="Hard"
+                                    checked={this.state.workout_difficulty==='Hard'}
                                     onChange={this.onChangeWorkoutDifficulty}
                                     />
                             <label className="form-check-label">Hard</label>
@@ -201,8 +201,8 @@ export default class EditWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Times Completed: </label>
-                        <input 
-                                type="number" 
+                        <input
+                                type="number"
                                 className="form-control"
                                 min="0"
                                 value={this.state.workout_times_completed}
@@ -211,14 +211,14 @@ export default class EditWorkout extends Component {
                     </div>
                     <div className="form-group">
                         <label>Date Last Completed: </label>
-                        <input 
-                                type="date" 
+                        <input value={ (new Date(this.state.workout_completed_date)) || (new Date())}
+                                type="date"
                                 className="form-control"
-                                value={this.state.workout_completed_date}
+
                                 onChange={this.onChangeWorkoutCompletedDate}
                                 />
                     </div>
-                    <div className="form-group"> 
+                    <div className="form-group">
                         <label>Tags: </label>
                         <input  type="text"
                                 className="form-control"
