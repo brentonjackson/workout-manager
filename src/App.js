@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import navbar from 'react-bootstrap/Navbar';
-import 'react-bootstrap/nav'
 import styled from 'styled-components';
 
 import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 
-const Nav = styled.navbar`
+const Nav = styled.nav`
   position: absolute;
   left: 0px;
   right: 0px
