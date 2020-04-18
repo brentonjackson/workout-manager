@@ -9,7 +9,7 @@ import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 
-const Nav = styled(Nav)`
+const MyNav = styled(Nav)`
   position: absolute;
   left: 0px;
   right: 0px
@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <Router>
         <MainDiv className="container">
-          <Nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/" className="navbar-brand">MERN-Stack Workout App</Link>
             <div className="collpase navbar-collapse">
               <ul className="navbar-nav mr-auto">
@@ -35,7 +35,7 @@ class App extends Component {
                 </li>
               </ul>
             </div>
-          </Nav>
+          </MyNav>
           <br/>
           <Route path="/" exact component={WorkoutList} />
           <Route path="/edit/:id"  component={EditWorkout} />

@@ -1,5 +1,6 @@
 {
   "name": "mern-workout-app",
+  "homepage": "https://compassionate-wescoff-fd50aa.netlify.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
