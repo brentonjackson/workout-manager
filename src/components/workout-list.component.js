@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardDeck, Container} from 'react-bootstrap';
-import Dashboard from "./Dashboard";
 import styled from 'styled-components';
 
 const WorkoutContainer = styled(Container)`
 	height: 100vh;
 	padding-top: 25px;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
 `
 
 
@@ -75,16 +77,13 @@ export default class WorkoutList extends Component {
 
 	render() {
 		return (
-			<div>
-			<Dashboard />
 			<WorkoutContainer>
-				<h3 className="text-center text-white" style={{marginBottom: "25px"}}> Workout Hub</h3>
+				<h3 className="text-center text-white" style={{marginBottom: "150px"}}> Workout Hub</h3>
 				<CardDeck>
 					{this.workoutList()}
 				</CardDeck>
 
 			</WorkoutContainer>
-			</div>
 
 		)
 	}

@@ -8,11 +8,14 @@ import styled from 'styled-components';
 import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
+import Dashboard from "./components/Dashboard";
+
 
 const MyNav = styled(Nav)`
   position: absolute;
   left: 0px;
-  right: 0px
+  right: 0px;
+  z-index: 10;
 `
 const MainDiv = styled.div`
 
@@ -37,6 +40,7 @@ class App extends Component {
             </div>
           </MyNav>
           <br/>
+          <Dashboard/>
           <Route path="/" exact component={WorkoutList} />
           <Route path="/edit/:id"  component={EditWorkout} />
           <Route path="/create"  component={CreateWorkout} />
