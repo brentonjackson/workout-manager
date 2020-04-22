@@ -14,7 +14,7 @@ const WorkoutContainer = styled(Container)`
 
 
 const Workout = props => (
-	<Card>
+	<Card >
 		<Card.Body>
 			<Card.Title>{props.workout.workout_title}</Card.Title>
 			<Card.Subtitle className="mb-4 text-muted">{props.workout.workout_tags}</Card.Subtitle>

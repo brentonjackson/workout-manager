@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import styled from 'styled-components';
+
+const UpdateDiv = styled.div`
+	height: 100vh;
+	padding-top: 25px;
+	justify-content: center;
+    display: flex;
+    flex-direction: column;
+`
 
 export default class EditWorkout extends Component {
 	constructor(props) {
@@ -135,8 +144,8 @@ export default class EditWorkout extends Component {
 
 	render() {
 		return (
-			<div style={{marginTop: 10}}>
-				<h3>Update Workout</h3>
+			<UpdateDiv style={{marginTop: 10, color: 'white'}}>
+				<h3 className="text-center text-white" style={{marginBottom: "150px"}}>Update Workout</h3>
 				<form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Title: </label>
@@ -231,7 +240,7 @@ export default class EditWorkout extends Component {
                     </div>
                     <Button size='sm' variant='danger' onClick={this.deleteWorkout}>Delete</Button>
                 </form>
-			</div>
+			</UpdateDiv>
 
 		)
 	}

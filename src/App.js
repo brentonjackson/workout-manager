@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Nav} from "react-bootstrap";
@@ -9,7 +10,6 @@ import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
-
 
 const MyNav = styled(Nav)`
   position: absolute;
@@ -31,10 +31,10 @@ class App extends Component {
             <div className="collpase navbar-collapse">
               <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
-                  <Link to="/" className="nav-link">Workouts</Link>
+                  <HashLink to="/" className="nav-link">Workouts</HashLink>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/create" className="nav-link">Create Workout</Link>
+                  <HashLink to="/create" className="nav-link">Create Workout</HashLink>
                 </li>
               </ul>
             </div>
