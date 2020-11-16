@@ -32,9 +32,9 @@ class App extends Component {
           <div className="collpase navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
-                <HashLink to="/workouts" className="nav-link">
+                <Link to="/workouts" className="nav-link">
                   Workouts
-                </HashLink>
+                </Link>
               </li>
               <li className="navbar-item">
                 <Link to="/create" className="nav-link">

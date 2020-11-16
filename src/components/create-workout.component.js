@@ -79,7 +79,7 @@ export default class CreateWorkout extends Component {
 
   onChangeWorkoutCompletedDate(e) {
     this.setState({
-      workout_completed_date: e.target.value.toUTCString(),
+      workout_completed_date: e.target.value,
     });
   }
 

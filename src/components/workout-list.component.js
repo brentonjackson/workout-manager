@@ -78,7 +78,6 @@ export default class WorkoutList extends Component {
 	render() {
 		return (
 			<div>
-			<Dashboard />
 			<WorkoutContainer>
 				<h3 className="text-center text-white" style={{marginBottom: "25px"}}> Workout Hub</h3>
 				<CardDeck>
