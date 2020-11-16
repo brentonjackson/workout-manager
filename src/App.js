@@ -24,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <div>
         <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/" className="navbar-brand">
             MERN-Stack Workout App
@@ -50,6 +51,7 @@ class App extends Component {
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
         <Route path="/profile" component={Profile} />
+        </div>
       </Router>
     );
   }

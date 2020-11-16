@@ -34,7 +34,7 @@ function Dashboard(props) {
         <video loop autoPlay muted src={video} />
       </div>
       <div className="overlay"></div>
-      <animated.div scrollTop={moreprops}>
+      <div scrollTop={props.moreprops}>
         <Quote>
           <Card.Body>
             <blockquote className="blockquote mb-0">
@@ -43,7 +43,7 @@ function Dashboard(props) {
             </blockquote>
           </Card.Body>
         </Quote>
-      </animated.div>
+      </div>
     </Screen>
   );
 }
