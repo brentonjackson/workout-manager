@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import { useSpring, animated } from "react-spring";
 import video from "../video.mp4";
 const video2 =
   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
@@ -28,8 +27,6 @@ function Dashboard(props) {
       author: "Napoleon Hill",
     },
   ];
-
-  const moreprops = useSpring({ scroll: 100, from: { scroll: 0 } });
 
   return (
     <Screen>

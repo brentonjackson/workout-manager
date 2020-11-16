@@ -1,23 +1,25 @@
-// node/ express server implementation on port 4000
-
-// web framework
 const express = require('express');
 const app = express();
-
-// node body parsing middleware
 const bodyParser = require('body-parser');
-
-// allows restricted resources on web page to be requested from another domain
-// outside domain first resource was served
 const cors = require('cors');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+
 
 // add mongodb
 const mongoose = require('mongoose');
 let Workout = require('./workout.model');
 const PORT = 4000;
 
-app.use(cors());
-app.use(bodyParser.json());
+
+const path = require('path');
+app.use(express.static('../build/'));
+app.get("*", (req,res)=> {
+	res.sendFile('index.html', {root: '../build/'});
+});
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/workouts', { useNewUrlParser: true});
 const connection = mongoose.connection;
@@ -34,7 +36,7 @@ const workoutRoutes = express.Router();
 
 // endpoint to deliver all available workout items
 // get workouts when result is available using find method
-workoutRoutes.route('/').get((req,res) => {
+workoutRoutes.route('/workouts').get((req,res) => {
 	Workout.find((err, workouts) => {
 		if (err) {
 			console.log(err + 'man');
