@@ -1,5 +1,6 @@
 {
   "name": "mern-workout-app",
+  "author": "Brenton Jackson",
   "homepage": "https://compassionate-wescoff-fd50aa.netlify.app/",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +11,7 @@
     "auth0-js": "^9.8.0",
     "auth0-lock": "^11.10.0",
     "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.3",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
     "express-jwt-authz": "^1.0.0",

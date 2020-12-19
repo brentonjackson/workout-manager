@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardDeck } from 'react-bootstrap';
@@ -31,11 +31,26 @@ const Workout = props => (
 	</Card>
 )
 
+// const WorkoutList = () => {
+// 	const [workouts, setWorkouts] = useState([])
+// 	const deleteWorkout = () => {
+// 		const obj = {
+// 			workout_title: this.state.workout_title,
+// 			workout_tags: this.state.workout_tags,
+//             workout_description: this.state.workout_description,
+//             workout_responsible: this.state.workout_responsible,
+//             workout_difficulty: this.state.workout_difficulty,
+//             workout_times_completed: this.state.workout_times_completed,
+//             workout_completed_date: this.state.workout_completed_date
+// 		}
+// 	}
+// }
 export default class WorkoutList extends Component {
 	constructor(props){
 		super(props);
 		this.deleteWorkout = this.deleteWorkout.bind(this);
 		this.state = {workouts: []};
+		console.log(this.state)
 	}
 
 	// method to delete entries
@@ -71,8 +86,11 @@ export default class WorkoutList extends Component {
 
     // populate cards with workouts from database
     workoutList() {
-    	console.log(this.state.workouts);
-    	return this.state.workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
+		let workouts = this.state.workouts
+		console.log(this.state.workouts);
+		return workouts.length > 1 ? 
+		workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
+		: []
     }
     
 	render() {
