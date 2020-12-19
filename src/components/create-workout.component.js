@@ -87,21 +87,25 @@ export default class CreateWorkout extends Component {
     // backend not setup yet
     e.preventDefault();
 
-    const newWorkout = {
-      workout_title: this.state.workout_title,
-      workout_tags: this.state.workout_tags,
-      workout_description: this.state.workout_description,
-      workout_responsible: this.state.workout_responsible,
-      workout_difficulty: this.state.workout_difficulty,
-      workout_times_completed: this.state.workout_times_completed,
-      workout_completed_date: this.state.workout_completed_date,
-    };
+        console.log(`Form submitted:`);
+        console.log(`Workout title: ${this.state.workout_title}`);
 
-    axios
-      .post("http://localhost:4000/workouts/add", newWorkout)
-      .then((res) => console.log(res.data));
 
-    this.props.history.push("/workouts");
+    // const newWorkout = {
+    //   workout_title: this.state.workout_title,
+    //   workout_tags: this.state.workout_tags,
+    //   workout_description: this.state.workout_description,
+    //   workout_responsible: this.state.workout_responsible,
+    //   workout_difficulty: this.state.workout_difficulty,
+    //   workout_times_completed: this.state.workout_times_completed,
+    //   workout_completed_date: this.state.workout_completed_date,
+    // };
+
+    // axios
+    //   .post("http://localhost:4000/workouts/add", newWorkout)
+    //   .then((res) => console.log(res.data));
+
+    // this.props.history.push("/workouts");
 
     // reset form
     this.setState({

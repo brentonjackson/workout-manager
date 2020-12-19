@@ -87,7 +87,7 @@ export default class WorkoutList extends Component {
     // populate cards with workouts from database
     workoutList() {
 		let workouts = this.state.workouts
-		console.log(this.state.workouts);
+		console.log('workouts: ',this.state.workouts);
 		return workouts.length > 1 ? 
 		workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
 		: []
@@ -97,7 +97,7 @@ export default class WorkoutList extends Component {
 		return (
 			<div>
 			<WorkoutContainer>
-				<h3 className="text-center text-white" style={{marginBottom: "25px"}}> Workout Hub</h3>
+				<h3 className="text-center text-white" style={{marginBottom: "25px", marginTop: '20px'}}> Workout Hub</h3>
 				<CardDeck>
 					{this.workoutList()}
 				</CardDeck>

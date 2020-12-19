@@ -1,4 +1,5 @@
-const app = require('express').express();
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -15,9 +16,9 @@ const PORT = 4000;
 
 const path = require('path');
 app.use(express.static('../build/'));
-app.get("*", (req,res)=> {
-	res.sendFile('index.html', {root: '../build/'});
-});
+// app.get("*", (req,res)=> {
+// 	res.sendFile('index.html', {root: '../build/'});
+// });
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/workouts', { useNewUrlParser: true});
@@ -30,15 +31,15 @@ connection.once('open', function() {
 
 
 //****************************************************** setup api endpoints *************************************************************************
-const workoutRoutes = express.Router();
+const routes = express.Router();
 
 
 // endpoint to deliver all available workout items
 // get workouts when result is available using find method
-workoutRoutes.route('/workouts').get((req,res) => {
+routes.route('/').get((req,res) => {
 	Workout.find((err, workouts) => {
 		if (err) {
-			console.log(err + 'man');
+			console.log(err);
 		} else {
 			res.json(workouts);
 		}
@@ -46,7 +47,7 @@ workoutRoutes.route('/workouts').get((req,res) => {
 });
 
 // endpoint to retrieve workout item
-workoutRoutes.route('/:id').get((req, res) => {
+routes.route('/:id').get((req, res) => {
 	let id = req.params.id;
 	Workout.findById(id, (err, workout) => {
 		res.json(workout);
@@ -54,7 +55,7 @@ workoutRoutes.route('/:id').get((req, res) => {
 });
 
 // Post endpoint route
-workoutRoutes.route('/add').post((req, res) => {
+routes.route('/add').post((req, res) => {
 	let workout = new Workout(req.body);
 	workout.save()
 		.then(workout => {
@@ -66,7 +67,7 @@ workoutRoutes.route('/add').post((req, res) => {
 });
 
 // delete workout
-workoutRoutes.route('/delete/:id').delete((req, res, next) => {
+routes.route('/delete/:id').delete((req, res, next) => {
 	Workout.findByIdAndRemove(req.params.id, (err, workout) => {
 		if (err) {
 			return next(err);
@@ -79,7 +80,7 @@ workoutRoutes.route('/delete/:id').delete((req, res, next) => {
 })
 
 // update endpoint route
-workoutRoutes.route('/update/:id').post((req, res) => {
+routes.route('/update/:id').post((req, res) => {
 	Workout.findById(req.params.id, (err, workout) => {
 		if (!workout) {
 			res.status(404).send('data is not found');
@@ -102,7 +103,7 @@ workoutRoutes.route('/update/:id').post((req, res) => {
 	})
 })
 
-app.use('/workouts', workoutRoutes);
+app.use('/workouts', routes);
 
 app.listen(PORT, function() {
     console.log(`Server is running on Port: ${PORT}`);
