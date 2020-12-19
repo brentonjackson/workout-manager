@@ -25,9 +25,13 @@ app.use(express.static('../build/'));
 // 	res.sendFile('index.html', {root: '../build/'});
 // });
 
-
-mongoose.connect('mongodb://127.0.0.1:27017/workouts', { useNewUrlParser: true});
+// setup and get the default mongoose connection
+const dev_db_url = 'mongodb://127.0.0.1:27017/workouts'
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, { useNewUrlParser: true});
 const connection = mongoose.connection;
+
+connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
