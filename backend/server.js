@@ -26,9 +26,10 @@ app.use(express.static('../build/'));
 // });
 
 // setup and get the default mongoose connection
-const dev_db_url = 'mongodb://127.0.0.1:27017/workouts'
+const dev_db_url = 'mongodb+srv://brenton:bjisnumber20@cluster0.k2y45.mongodb.net/workouts?retryWrites=true&w=majority'
+// const dev_db_url = 'mongodb://127.0.0.1:27017/workouts'
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useNewUrlParser: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
 
 connection.on('error', console.error.bind(console, 'MongoDB connection error:'));

@@ -3,6 +3,9 @@
   "author": "Brenton Jackson",
   "homepage": "https://compassionate-wescoff-fd50aa.netlify.app/",
   "version": "0.1.0",
+  "engines": {
+    "node": "13.8.0"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -29,10 +32,12 @@
     "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start":"serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
