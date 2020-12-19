@@ -57,7 +57,7 @@ routes.route('/:id').get((req, res) => {
 // Post endpoint route
 routes.route('/add').post((req, res) => {
 	let workout = new Workout(req.body);
-	workout.save()
+	workout.save(workout)
 		.then(workout => {
 			res.status(200).json({'workout': 'workout added successfully'});
 		})
