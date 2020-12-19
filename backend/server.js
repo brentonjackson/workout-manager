@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const compression = require('compression');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -13,6 +15,8 @@ const mongoose = require('mongoose');
 let Workout = require('./workout.model');
 const PORT = 4000;
 
+// compress all routes
+app.use(compression());
 
 const path = require('path');
 app.use(express.static('../build/'));
