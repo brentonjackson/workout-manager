@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const compression = require('compression');
 const helmet = require('helmet');
+require('dotenv/config');
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -14,7 +15,7 @@ app.use(cors());
 // add mongodb
 const mongoose = require('mongoose');
 let Workout = require('./workout.model');
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // compress all routes
 app.use(compression());
@@ -26,9 +27,7 @@ app.use(express.static('../build/'));
 // });
 
 // setup and get the default mongoose connection
-const dev_db_url = 'mongodb+srv://brenton:bjisnumber20@cluster0.k2y45.mongodb.net/workouts?retryWrites=true&w=majority'
-// const dev_db_url = 'mongodb://127.0.0.1:27017/workouts'
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB = process.env.MONGODB_URI || process.env.DEV_DB_CONNECTION;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
 
