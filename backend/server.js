@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const compression = require('compression');
 const helmet = require('helmet');
-require('dotenv/config');
+require('dotenv').config();
 
 app.use(helmet());
 app.use(bodyParser.json());
