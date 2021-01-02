@@ -6,6 +6,9 @@ const compression = require('compression');
 const helmet = require('helmet');
 require('dotenv').config();
 
+const proxy = require('http-proxy-middleware')
+
+
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -113,6 +116,11 @@ routes.route('/update/:id').post((req, res) => {
 })
 
 app.use('/workouts', routes);
+module.exports = function(app) {
+    // add other server routes to path array
+    app.use(proxy(['/workouts' ], { target: 'http://localhost:4000' }));
+} 
+
 
 app.listen(PORT, function() {
     console.log(`Server is running on Port: ${PORT}`);
