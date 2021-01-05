@@ -6,7 +6,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 require('dotenv').config();
 
-const proxy = require('http-proxy-middleware')
+// const proxy = require('http-proxy-middleware')
 
 
 app.use(helmet());
@@ -115,11 +115,11 @@ routes.route('/update/:id').post((req, res) => {
 	})
 })
 
-app.use('/workouts', routes);
-module.exports = function(app) {
-    // add other server routes to path array
-    app.use(proxy(['/workouts' ], { target: 'https://intense-ridge-39955.herokuapp.com/' }));
-} 
+// app.use('/workouts', routes);
+// module.exports = function(app) {
+//     // add other server routes to path array
+//     app.use(proxy(['/workouts' ], { target: 'https://intense-ridge-39955.herokuapp.com/' }));
+// } 
 
 
 app.listen(PORT, function() {
