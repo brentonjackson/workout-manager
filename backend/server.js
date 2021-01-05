@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 4000;
 app.use(compression());
 
 const path = require('path');
-app.use(express.static('../build/'));
+// app.use(express.static('../build/'));
 // app.get("*", (req,res)=> {
 // 	res.sendFile('index.html', {root: '../build/'});
 // });
@@ -122,7 +122,7 @@ app.use('/workouts', routes);
 // } 
 
 // set up a route to redirect http to https
-app.get('*', function(req, res) {  
+http.get('*', function(req, res) {  
     res.redirect('https://' + req.headers.host + req.url);
 
     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
