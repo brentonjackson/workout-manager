@@ -65,7 +65,7 @@ export default class WorkoutList extends Component {
             workout_completed_date: this.state.workout_completed_date
         };
 
-		axios.delete('/workouts/delete/' + this.props.match.params.id, obj)
+		axios.delete('http://localhost:4000/workouts/delete/' + this.props.match.params.id, obj)
 			.then((res) => {
                 console.log('Student successfully deleted!')
             }).catch((error) => {
@@ -75,7 +75,7 @@ export default class WorkoutList extends Component {
     }
 
 	componentDidMount() {
-        axios.get('/workouts/')
+        axios.get('http://localhost:4000/workouts/')
             .then(response => {
                 this.setState({ workouts: response.data });
             })

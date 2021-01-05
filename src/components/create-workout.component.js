@@ -102,7 +102,7 @@ export default class CreateWorkout extends Component {
     };
 
     axios
-      .post("/workouts/add", newWorkout)
+      .post("http://localhost:4000/workouts/add", newWorkout)
       .then((res) => console.log(res.data));
 
     this.props.history.push("/workouts");
