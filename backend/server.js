@@ -115,7 +115,7 @@ routes.route('/update/:id').post((req, res) => {
 	})
 })
 
-// app.use('/workouts', routes);
+app.use('/workouts', routes);
 // module.exports = function(app) {
 //     // add other server routes to path array
 //     app.use(proxy(['/workouts' ], { target: 'https://intense-ridge-39955.herokuapp.com/' }));
