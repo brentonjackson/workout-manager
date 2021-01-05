@@ -121,6 +121,14 @@ app.use('/workouts', routes);
 //     app.use(proxy(['/workouts' ], { target: 'https://intense-ridge-39955.herokuapp.com/' }));
 // } 
 
+// set up a route to redirect http to https
+http.get('*', function(req, res) {  
+    res.redirect('https://' + req.headers.host + req.url);
+
+    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+    // res.redirect('https://example.com' + req.url);
+})
+
 
 app.listen(PORT, function() {
     console.log(`Server is running on Port: ${PORT}`);
