@@ -119,8 +119,7 @@ routes.route('/update/:id').post((req, res) => {
 
 app.use('/workouts', routes);
 app.get('/', (req,res) => {
-//   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-res.send('Hello from express!!!')
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 
