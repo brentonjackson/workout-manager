@@ -5,7 +5,6 @@ const cors = require('cors');
 const compression = require('compression');
 const helmet = require('helmet');
 require('dotenv').config();
-const cors = require('cors')
 
 // const proxy = require('http-proxy-middleware')
 
