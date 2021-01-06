@@ -82,7 +82,7 @@ export default class WorkoutList extends Component {
   })
             .then(response => {
 				this.setState({ workouts: response.data });
-				console.log('workouts',workouts)
+				console.log('workouts', this.state.workouts)
             })
             .catch(function (error){
                 console.log(error);
