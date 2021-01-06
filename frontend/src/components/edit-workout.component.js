@@ -121,7 +121,7 @@ export default class EditWorkout extends Component {
     console.log(obj.workout_completed_date);
     axios
       .post(
-        "http://localhost:4000/workouts/update/" + this.props.match.params.id,
+        "https://intense-ridge-39955.herokuapp.com/workouts/update/" + this.props.match.params.id,
         obj
       )
       .then((res) => console.log(res.data));

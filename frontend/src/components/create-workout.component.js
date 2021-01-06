@@ -102,7 +102,7 @@ export default class CreateWorkout extends Component {
     };
 
     axios
-      .post("/workouts/add", newWorkout)
+      .post("https://intense-ridge-39955.herokuapp.com/workouts/add", newWorkout)
       .then((res) => console.log(res.data));
 
     this.props.history.push("/workouts");

@@ -65,7 +65,7 @@ export default class WorkoutList extends Component {
             workout_completed_date: this.state.workout_completed_date
         };
 
-		axios.delete('/workouts/delete/' + this.props.match.params.id, obj)
+		axios.delete('https://intense-ridge-39955.herokuapp.com/workouts/delete/' + this.props.match.params.id, obj)
 			.then((res) => {
                 console.log('Student successfully deleted!')
             }).catch((error) => {
@@ -75,7 +75,7 @@ export default class WorkoutList extends Component {
     }
 
 	componentDidMount() {
-        axios.get('/workouts/',  {
+        axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
     headers: {
     'Content-Type': 'application/json'
     }
