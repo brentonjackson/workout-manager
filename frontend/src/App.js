@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav } from "react-bootstrap";
+import { Nav, Container } from "react-bootstrap";
 import styled from "styled-components";
 
 import CreateWorkout from "./components/create-workout.component";
@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <Container>
         <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/" className="navbar-brand">
             MERN-Stack Workout App
@@ -51,7 +51,7 @@ class App extends Component {
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
         <Route path="/profile" component={Profile} />
-        </div>
+        </Container>
       </Router>
     );
   }
