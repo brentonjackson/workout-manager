@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.done {
+	background-color: green;
+}
+
+.fullscreen-video-wrap {
+  position: absolute;
+  top: -15vh;
+  right: 0;
+  bottom: 0vh;
+  left: 0;
+  max-width: 100%;
+  z-index: 0;
+  overflow: hidden;
+
+}
+
+.overlay {
+  background-color: black;
+  position: absolute;
+  top: -15vh;
+  right: 0;
+  bottom: 0vh;
+  left: 0;
+  z-index: 0;
+  opacity: .4;
+
+}
+
+.fullscreen-video-wrap video {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+Card {
+  width: 50rem;
+}
+
+
