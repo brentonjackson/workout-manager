@@ -24,6 +24,8 @@ const PORT = process.env.PORT || 4000;
 app.use(compression());
 
 const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+
 // app.use(express.static('../build/'));
 // app.get("*", (req,res)=> {
 // 	res.sendFile('index.html', {root: '../build/'});
@@ -116,10 +118,9 @@ routes.route('/update/:id').post((req, res) => {
 })
 
 app.use('/workouts', routes);
-// module.exports = function(app) {
-//     // add other server routes to path array
-//     app.use(proxy(['/workouts' ], { target: 'https://intense-ridge-39955.herokuapp.com/' }));
-// } 
+app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 // set up a route to redirect http to https
 http.get('*', function(req, res) {  

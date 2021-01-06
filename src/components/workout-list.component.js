@@ -75,7 +75,11 @@ export default class WorkoutList extends Component {
     }
 
 	componentDidMount() {
-        axios.get('/workouts/')
+        axios.get('/workouts/',  {
+    headers: {
+    'Content-Type': 'application/json'
+    }
+  })
             .then(response => {
                 this.setState({ workouts: response.data });
             })
