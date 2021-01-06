@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
+
 
 const WorkoutContainer = styled.div`
   height: 100vh;
@@ -13,13 +15,14 @@ export default class CreateWorkout extends Component {
     super(props);
 
     this.state = {
+      redirect: null,
       workout_title: "",
       workout_tags: [""],
       workout_description: [""],
       workout_responsible: "",
       workout_difficulty: "",
       workout_times_completed: 0,
-      workout_completed_date: new Date().toUTCString(),
+      workout_completed_date: new Date().toLocaleDateString("en", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
     };
 
     this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
@@ -105,21 +108,24 @@ export default class CreateWorkout extends Component {
       .post("https://intense-ridge-39955.herokuapp.com/workouts/add", newWorkout)
       .then((res) => console.log(res.data));
 
-    this.props.history.push("/workouts");
+    this.setState({ redirect: "/workouts" });
 
     // reset form
-    this.setState({
-      workout_title: "",
-      workout_tags: [""],
-      workout_description: [""],
-      workout_responsible: "",
-      workout_difficulty: "",
-      workout_times_completed: 0,
-      workout_completed_date: new Date().toUTCString(),
-    });
+    // this.setState({
+    //   workout_title: "",
+    //   workout_tags: [""],
+    //   workout_description: [""],
+    //   workout_responsible: "",
+    //   workout_difficulty: "",
+    //   workout_times_completed: 0,
+    //   workout_completed_date: new Date().toUTCString(),
+    // });
   }
 
   render() {
+       if (this.state.redirect) {
+    return <Redirect to={this.state.redirect} />
+  }
     return (
       <WorkoutContainer>
         <h3>Create New Workout</h3>

@@ -1,15 +1,18 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import { Card, CardDeck } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Dashboard from "./Dashboard";
 import styled from 'styled-components';
 
 const WorkoutContainer = styled(Container)`
 	height: 100vh;
 	padding-top: 25px;
 `
+
+const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
 
 
 const Workout = props => (
@@ -49,8 +52,9 @@ export default class WorkoutList extends Component {
 	constructor(props){
 		super(props);
 		this.deleteWorkout = this.deleteWorkout.bind(this);
-		this.state = {workouts: []};
-		console.log(this.state)
+		this.state = {workouts: null,
+		redirect: null,
+	isLoading: false};
 	}
 
 	// method to delete entries
@@ -71,40 +75,74 @@ export default class WorkoutList extends Component {
             }).catch((error) => {
                 console.log(error)
             })
-        this.props.history.push('/');
+        this.setState({ redirect: "/" });
     }
 
+	componentWillMount() {
+		this._loadWorkouts()
+
+	}
+
 	componentDidMount() {
-        axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
+		this._loadWorkouts()
+		// load every 30 seconds
+		this.timer = setInterval(() => this._loadWorkouts(), 30000);
+	}
+
+	componentWillUnmount() {
+        clearInterval(this.timer);
+        this.timer = null;
+    }
+	
+	componentDidUpdate() {
+		
+//   axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
+//     headers: {
+//     'Content-Type': 'application/json'
+//     }
+//   })
+//             .then(response => {
+// 				this.setState({ workouts: response.data });
+// 				console.log('workouts', this.state.workouts)
+//             })
+//             .catch(function (error){
+//                 console.log(error);
+//             })
+	
+}
+	
+	_loadWorkouts() {
+		this.setState({...this.state, isLoading: true});
+
+			
+
+		axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
     headers: {
     'Content-Type': 'application/json'
     }
   })
             .then(response => {
-				this.setState({ workouts: response.data });
+				this.setState({ workouts: response.data, isLoading: false });
 				console.log('workouts', this.state.workouts)
             })
             .catch(function (error){
-                console.log(error);
+				
+				console.log(error);
+				this.setState({...this.state, isLoading: false});
             })
-    }
-
-    // populate cards with workouts from database
-    workoutList() {
-		let workouts = this.state.workouts
-		console.log('workouts: ',this.state.workouts);
-		return (workouts.length > 1 && typeof(workouts) === Array) ? 
-		workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
-		: []
-    }
+	}
     
 	render() {
+		    if (this.state.redirect) {
+    return <Redirect to={this.state.redirect} />
+  }
 		return (
 			<div>
 			<WorkoutContainer>
 				<h3 className="text-center text-white" style={{marginBottom: "25px", marginTop: '20px'}}> Workout Hub</h3>
 				<CardDeck>
-					{this.workoutList()}
+					<h4 className="text-center text-white">{this.state.isLoading ? 'Loading workouts.....' : ''}</h4>
+					{this.state.isLoading ? '' : this.state.workouts ? this.state.workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />) : ''}
 				</CardDeck>
 				
 			</WorkoutContainer>
@@ -112,4 +150,5 @@ export default class WorkoutList extends Component {
 
 		)
 	}
+
 }

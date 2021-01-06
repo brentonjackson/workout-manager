@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 
 const UpdateDiv = styled.div`
   height: 100vh;
@@ -34,27 +35,29 @@ export default class EditWorkout extends Component {
     this.deleteWorkout = this.deleteWorkout.bind(this);
 
     this.state = {
+      redirect: null,
       workout_title: "",
       workout_tags: [""],
       workout_description: [""],
       workout_responsible: "",
       workout_difficulty: "",
-      workout_times_complecated: 0,
-      workout_completed_date: new Date().toString(),
+      workout_times_completed: 0,
+      workout_completed_date: new Date(),
     };
   }
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/workouts/" + this.props.match.params.id)
+      .get("https://intense-ridge-39955.herokuapp.com/workouts/" + this.props.match.params.id)
       .then((response) => {
+        console.log(response.data)
         this.setState({
           workout_title: response.data.workout_title,
           workout_tags: response.data.workout_tags,
           workout_description: response.data.workout_description,
           workout_responsible: response.data.workout_responsible,
           workout_difficulty: response.data.workout_difficulty,
-          workout_times_complecated: response.data.workout_times_complecated,
+          workout_times_completed: response.data.workout_times_completed,
           workout_completed_date: response.data.workout_completed_date,
         });
       })
@@ -126,7 +129,8 @@ export default class EditWorkout extends Component {
       )
       .then((res) => console.log(res.data));
 
-    this.props.history.push("/");
+    // this.props.history.push("https://intense-ridge-39955.herokuapp.com/");
+    this.setState({ redirect: "/workouts" });
   }
 
   deleteWorkout(e) {
@@ -140,14 +144,15 @@ export default class EditWorkout extends Component {
       workout_completed_date: this.state.workout_completed_date,
     };
 
-    axios.delete('/workouts/delete/' + this.props.match.params.id, obj)
+    axios.delete('https://intense-ridge-39955.herokuapp.com/workouts/delete/' + this.props.match.params.id, obj)
     	.then((res) => {
                   console.log('Workout successfully deleted!')
                   console.log(res.data)
               }).catch((error) => {
                   console.log(error)
               })
-          this.props.history.push('/workouts');
+              this.setState({ redirect: "/workouts" });
+          // this.props.history.push('https://intense-ridge-39955.herokuapp.com/workouts');
   //   axios
   //     .delete(
   //       "http://localhost:4000/workouts/delete/" + this.props.match.params.id,
@@ -159,6 +164,9 @@ export default class EditWorkout extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+    return <Redirect to={this.state.redirect} />
+  }
     return (
       <UpdateDiv style={{ marginTop: "0px", color: "white" }}>
         <h3 className="text-center text-white" style={{ marginBottom: "70px" }}>
@@ -246,7 +254,7 @@ export default class EditWorkout extends Component {
           <div className="form-group">
             <label>Date Last Completed: </label>
             <input
-              value={new Date(this.state.workout_completed_date) || new Date()}
+              value={this.state.workout_completed_date}
               type="date"
               className="form-control"
               onChange={this.onChangeWorkoutCompletedDate}
