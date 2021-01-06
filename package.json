@@ -36,11 +36,11 @@
     "styled-components": "^5.1.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "node backend/server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "heroku-prebuild": "node backend/server.js",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
