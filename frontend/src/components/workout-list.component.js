@@ -11,7 +11,6 @@ const WorkoutContainer = styled(Container)`
 	padding-top: 25px;
 `
 
-const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 
 
@@ -94,28 +93,10 @@ export default class WorkoutList extends Component {
         this.timer = null;
     }
 	
-	componentDidUpdate() {
-		
-//   axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
-//     headers: {
-//     'Content-Type': 'application/json'
-//     }
-//   })
-//             .then(response => {
-// 				this.setState({ workouts: response.data });
-// 				console.log('workouts', this.state.workouts)
-//             })
-//             .catch(function (error){
-//                 console.log(error);
-//             })
-	
-}
 	
 	_loadWorkouts() {
 		this.setState({...this.state, isLoading: true});
-
-			
-
+		
 		axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
     headers: {
     'Content-Type': 'application/json'
