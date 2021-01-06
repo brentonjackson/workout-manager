@@ -92,7 +92,7 @@ export default class WorkoutList extends Component {
     workoutList() {
 		let workouts = this.state.workouts
 		console.log('workouts: ',this.state.workouts);
-		return workouts.length > 1 ? 
+		return (workouts.length > 1 && typeof(workouts) === Array) ? 
 		workouts.map((currentWorkout, i) => <Workout workout={currentWorkout} key={i} />)
 		: []
     }
