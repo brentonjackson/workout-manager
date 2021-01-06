@@ -123,7 +123,7 @@ app.get('/', (req,res) => {
 });
 
 // set up a route to redirect http to https
-http.get('*', function(req, res) {  
+app.get('*', function(req, res) {  
     res.redirect('https://' + req.headers.host + req.url);
 
     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
