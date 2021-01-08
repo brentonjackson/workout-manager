@@ -1,9 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import video from "../video.mp4";
-const video2 =
-  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+
 
 const Quote = styled(Card)`
   color: black;
@@ -30,11 +29,8 @@ function Dashboard(props) {
 
   return (
     <Screen>
-      <div className="fullscreen-video-wrap">
-        <video loop autoPlay muted src={video} />
-      </div>
-      <div className="overlay"></div>
-      <div scrollTop={props.moreprops}>
+      
+      <div>
         <Quote>
           <Card.Body>
             <blockquote className="blockquote mb-0">
