@@ -18,13 +18,28 @@ const MyNav = styled(Nav)`
   right: 0px;
   z-index: 10;
 `;
+
+const WorkoutContainer = styled(Container)`
+	
+	margin-top: 150px;
+  padding: 0px 15px 150px;
+  
+  @media (min-width: 768px) {
+    padding: 0px 100px 150px;
+  }
+
+  @media (min-width: 992px) {
+    margin-top: 100px;
+  }
+`
+
 const MainDiv = styled.div``;
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Container>
+        
         <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/" className="navbar-brand">
             MERN-Stack Workout App
@@ -45,13 +60,13 @@ class App extends Component {
           </div>
         </MyNav>
         <br />
-        {/* <Dashboard /> */}
+        {/* <Dashboard /> */}<WorkoutContainer>
         <Route path="/" exact component={Dashboard} />
         <Route path="/workouts" exact component={WorkoutList} />
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
         <Route path="/profile" component={Profile} />
-        </Container>
+        </WorkoutContainer>
       </Router>
     );
   }

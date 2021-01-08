@@ -7,8 +7,13 @@ import Container from 'react-bootstrap/Container';
 import styled from 'styled-components';
 
 const WorkoutContainer = styled(Container)`
-	height: 100vh;
-	padding-top: 25px;
+	
+// 	margin-top: 150px;
+// 	padding: 0px 15px 150px;
+
+//   @media (min-width: 992px) {
+//     margin-top: 100px;
+//   }
 `
 
 

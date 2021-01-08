@@ -9,7 +9,7 @@ const Quote = styled(Card)`
 `;
 
 const Screen = styled.div`
-  height: 100vh;
+  height: 175vh;
   display: flex;
   justify-content: center;
   align-items: center;
