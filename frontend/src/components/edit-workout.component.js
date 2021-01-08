@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import DatePicker from 'react-datepicker'
 
 const UpdateDiv = styled.div`
   height: 100vh;
@@ -43,8 +44,10 @@ export default class EditWorkout extends Component {
       workout_difficulty: "",
       workout_times_completed: 0,
       workout_completed_date: new Date(),
+      startDate: new Date()
     };
   }
+
 
   componentDidMount() {
     axios
@@ -253,12 +256,13 @@ export default class EditWorkout extends Component {
           </div>
           <div className="form-group">
             <label>Date Last Completed: </label>
-            <input
+            <DatePicker dateFormat="mm-dd-yyyy" selected={this.state.startDate} onChange={this.onChangeWorkoutCompletedDate} />
+            {/* <input
               value={this.state.workout_completed_date}
               type="date"
               className="form-control"
               onChange={this.onChangeWorkoutCompletedDate}
-            />
+            /> */}
           </div>
           <div className="form-group">
             <label>Tags: </label>

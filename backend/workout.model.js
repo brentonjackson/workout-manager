@@ -21,7 +21,7 @@ let Workout  = new Schema({
     	type: Number
     },
     workout_completed_date: {
-    	type: Date, default: (new Date()).toLocaleDateString("en", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    	type: Date, default: new Date()
     }
 });
 
