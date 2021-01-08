@@ -1,3 +1,0 @@
-# Redirects from what the browser requests to what we serve
-/workouts          https://intense-ridge-39955.herokuapp.com/workouts
-/create  https://intense-ridge-39955.herokuapp.com/create
