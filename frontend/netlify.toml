@@ -1,15 +1,7 @@
 # This is a TOML document
 
 [[redirects]]
-  from = "/workouts"
-  to = "https://intense-ridge-39955.herokuapp.com/workouts"
-  status = 301
-  force = true
-
-
-## This rule redirects to an external API, signing requests with a secret
-[[redirects]]
-  from = "/create"
-  to = "https://intense-ridge-39955.herokuapp.com/create"
+  from = "/*"
+  to = "/index.html"
   status = 200
-  force = true # COMMENT: ensure that we always redirect
+  force = true
