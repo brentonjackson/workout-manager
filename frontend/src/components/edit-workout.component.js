@@ -3,8 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+
 
 
 const UpdateDiv = styled.div`
@@ -110,7 +109,7 @@ export default class EditWorkout extends Component {
 
   onChangeWorkoutCompletedDate(e) {
     this.setState({
-      workout_completed_date: e.target.value,
+      workout_completed_date: e,
     });
   }
 

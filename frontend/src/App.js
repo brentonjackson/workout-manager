@@ -13,16 +13,17 @@ import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 
 const MyNav = styled(Nav)`
-  position: absolute;
-  left: 0px;
-  right: 0px;
   z-index: 10;
 `;
 
 const WorkoutContainer = styled(Container)`
 	
-	margin-top: 150px;
-  padding: 0px 15px 150px;
+
+  padding: 0px 15px;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   @media (min-width: 768px) {
     padding: 0px 100px 150px;

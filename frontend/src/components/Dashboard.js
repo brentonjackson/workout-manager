@@ -9,13 +9,11 @@ const Quote = styled(Card)`
 `;
 
 const Screen = styled.div`
-  height: 175vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
-  overflow: hidden;
-  max-height: 100vh;
+ 
 `;
 
 function Dashboard(props) {

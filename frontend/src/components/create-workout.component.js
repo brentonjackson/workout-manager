@@ -5,8 +5,8 @@ import { Redirect } from "react-router-dom";
 
 
 const WorkoutContainer = styled.div`
-  height: 100vh;
-  margin-top: 7.5em;
+   min-height: 80vh;
+  // margin-top: 7.5em;
   color: white;
 `;
 
