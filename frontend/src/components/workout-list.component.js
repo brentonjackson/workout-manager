@@ -11,21 +11,21 @@ import styled from 'styled-components';
 
 
 
-const Workout = props => (
+const Workout = ({workout}) => (
 	<Card>
 		<Card.Body>
-			<Card.Title>{props.workout.workout_title}</Card.Title>
-			<Card.Subtitle className="mb-4 text-muted">{props.workout.workout_tags}</Card.Subtitle>
-			<Card.Text>Description: {props.workout.workout_description}</Card.Text>
-			<Card.Text>For: {props.workout.workout_responsible}</Card.Text>
-			<Card.Text>Difficulty Level: {props.workout.workout_difficulty}</Card.Text>
-			<Card.Text>Times Completed: {props.workout.workout_times_completed}</Card.Text>
+			<Card.Title>{workout.workout_title}</Card.Title>
+			<Card.Subtitle className="mb-4 text-muted">{workout.workout_tags}</Card.Subtitle>
+			<Card.Text>Description: {workout.workout_description}</Card.Text>
+			<Card.Text>For: {workout.workout_responsible}</Card.Text>
+			<Card.Text>Difficulty Level: {workout.workout_difficulty}</Card.Text>
+			<Card.Text>Times Completed: {workout.workout_times_completed}</Card.Text>
 			<Card.Link>
-				<Link to={'edit/'+ props.workout._id}>Edit</Link>
+				<Link to={'edit/'+ workout._id}>Edit</Link>
 			</Card.Link>
 		</Card.Body>
 		<Card.Footer>
-				<small className="text-muted">Last completed on: {props.workout.workout_completed_date}</small>
+				<small className="text-muted">Last completed on: {new Date(workout.workout_completed_date).toLocaleDateString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
 		</Card.Footer>
 	</Card>
 )
@@ -55,6 +55,7 @@ export default class WorkoutList extends Component {
 
 	// method to delete entries
 	deleteWorkout(e) {
+		const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
 		const obj = {
 			workout_title: this.state.workout_title,
 			workout_tags: this.state.workout_tags,
@@ -65,7 +66,7 @@ export default class WorkoutList extends Component {
             workout_completed_date: this.state.workout_completed_date
         };
 
-		axios.delete('https://intense-ridge-39955.herokuapp.com/workouts/delete/' + this.props.match.params.id, obj)
+		axios.delete(baseUrl + 'workouts/delete/' + this.props.match.params.id, obj)
 			.then((res) => {
                 console.log('Student successfully deleted!')
             }).catch((error) => {
@@ -92,22 +93,23 @@ export default class WorkoutList extends Component {
 	
 	
 	_loadWorkouts() {
+		const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
 		this.setState({...this.state, isLoading: true});
 		
-		axios.get('https://intense-ridge-39955.herokuapp.com/workouts/',  {
-    headers: {
-    'Content-Type': 'application/json'
-    }
-  })
-            .then(response => {
-				this.setState({ workouts: response.data, isLoading: false });
-				console.log('workouts', this.state.workouts)
-            })
-            .catch(function (error){
-				
-				console.log(error);
-				this.setState({...this.state, isLoading: false});
-            })
+		axios.get(baseUrl + 'workouts/',  {
+			headers: {
+			'Content-Type': 'application/json'
+			}
+		})
+		.then(response => {
+			this.setState({ workouts: response.data, isLoading: false });
+			console.log('workouts', this.state.workouts)
+		})
+		.catch(function (error){
+			
+			console.log(error);
+			this.setState({...this.state, isLoading: false});
+		})
 	}
     
 	render() {
@@ -126,5 +128,4 @@ export default class WorkoutList extends Component {
 
 		)
 	}
-
 }

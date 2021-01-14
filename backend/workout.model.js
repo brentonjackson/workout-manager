@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let Workout  = new Schema({
+const WorkoutSchema  = new Schema({
     workout_title: {
-        type: String
+        type: String,
+        required: true
     },
     workout_tags: {
         type: [String]
     },
     workout_description: {
-        type: [String]
+        type: [String],
+        required: true
     },
     workout_responsible: {
     	type: String
@@ -21,8 +23,8 @@ let Workout  = new Schema({
     	type: Number
     },
     workout_completed_date: {
-    	type: Date, default: new Date()
+    	type: String, default: new Date().toString()
     }
 });
 
-module.exports = mongoose.model('Workout', Workout);
+module.exports = mongoose.model('Workout', WorkoutSchema);

@@ -44,15 +44,16 @@ export default class EditWorkout extends Component {
       workout_responsible: "",
       workout_difficulty: "",
       workout_times_completed: 0,
-      workout_completed_date: new Date(),
-      startDate: new Date()
+      workout_completed_date: new Date().toString(),
     };
   }
 
 
   componentDidMount() {
+        const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
+
     axios
-      .get("https://intense-ridge-39955.herokuapp.com/workouts/" + this.props.match.params.id)
+      .get(baseUrl + "workouts/" + this.props.match.params.id)
       .then((response) => {
         console.log(response.data)
         this.setState({
@@ -109,13 +110,15 @@ export default class EditWorkout extends Component {
 
   onChangeWorkoutCompletedDate(e) {
     this.setState({
-      workout_completed_date: e,
+      workout_completed_date: e.target.value,
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
 
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
+
     const obj = {
       workout_title: this.state.workout_title,
       workout_tags: this.state.workout_tags,
@@ -125,19 +128,18 @@ export default class EditWorkout extends Component {
       workout_times_completed: this.state.workout_times_completed,
       workout_completed_date: this.state.workout_completed_date,
     };
-    console.log(obj.workout_completed_date);
     axios
-      .post(
-        "https://intense-ridge-39955.herokuapp.com/workouts/update/" + this.props.match.params.id,
+      .post(baseUrl + 
+        "workouts/update/" + this.props.match.params.id,
         obj
       )
       .then((res) => console.log(res.data));
 
-    // this.props.history.push("https://intense-ridge-39955.herokuapp.com/");
     this.setState({ redirect: "/workouts" });
   }
 
   deleteWorkout(e) {
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
     const obj = {
       workout_title: this.state.workout_title,
       workout_tags: this.state.workout_tags,
@@ -148,7 +150,8 @@ export default class EditWorkout extends Component {
       workout_completed_date: this.state.workout_completed_date,
     };
 
-    axios.delete('https://intense-ridge-39955.herokuapp.com/workouts/delete/' + this.props.match.params.id, obj)
+    axios.delete(baseUrl + 
+        'workouts/delete/' + this.props.match.params.id, obj)
     	.then((res) => {
                   console.log('Workout successfully deleted!')
                   console.log(res.data)
@@ -156,15 +159,7 @@ export default class EditWorkout extends Component {
                   console.log(error)
               })
               this.setState({ redirect: "/workouts" });
-          // this.props.history.push('https://intense-ridge-39955.herokuapp.com/workouts');
-  //   axios
-  //     .delete(
-  //       "http://localhost:4000/workouts/delete/" + this.props.match.params.id,
-  //       obj
-  //     )
-  //     .then((res) => console.log(res.data));
 
-  //   this.props.history.push("/workouts");
   }
 
   render() {

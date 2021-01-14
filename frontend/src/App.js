@@ -43,7 +43,7 @@ class App extends Component {
         
         <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/" className="navbar-brand">
-            MERN-Stack Workout App
+            Workout Manager
           </Link>
           <div className="collpase navbar-collapse">
             <ul className="navbar-nav mr-auto">

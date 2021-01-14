@@ -22,7 +22,7 @@ export default class CreateWorkout extends Component {
       workout_responsible: "",
       workout_difficulty: "",
       workout_times_completed: 0,
-      workout_completed_date: new Date().toLocaleDateString("en", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+      workout_completed_date: new Date().toString(),
     };
 
     this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
@@ -87,11 +87,10 @@ export default class CreateWorkout extends Component {
   }
 
   onSubmit(e) {
-    // backend not setup yet
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
     e.preventDefault();
 
-        console.log(`Form submitted:`);
-        console.log(`Workout title: ${this.state.workout_title}`);
+
 
 
     const newWorkout = {
@@ -105,21 +104,10 @@ export default class CreateWorkout extends Component {
     };
 
     axios
-      .post("https://intense-ridge-39955.herokuapp.com/workouts/add", newWorkout)
+      .post(baseUrl + "workouts/add", newWorkout)
       .then((res) => console.log(res.data));
 
     this.setState({ redirect: "/workouts" });
-
-    // reset form
-    // this.setState({
-    //   workout_title: "",
-    //   workout_tags: [""],
-    //   workout_description: [""],
-    //   workout_responsible: "",
-    //   workout_difficulty: "",
-    //   workout_times_completed: 0,
-    //   workout_completed_date: new Date().toUTCString(),
-    // });
   }
 
   render() {
