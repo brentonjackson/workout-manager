@@ -134,7 +134,7 @@ export default class EditWorkout extends Component {
         obj
       )
       .then((res) => {console.log(res.data); this.setState({ redirect: "/workouts" });}).catch((error) => {
-        alert(error?.response?.data)
+        alert(error?.response?.data.map(message => {return message.split(':')[1]}))
        
                   console.log(error?.response);
                   

@@ -112,7 +112,7 @@ routes.route('/update/:id').patch((req, res) => {
 			})
 			.catch(err => {
 				// let error = workout.validateSync()
-				res.status(400).send(String(err).split(':')[2]);
+				res.status(400).send(String(err).split('ValidationError:')[1].split(','));
 			});
 		}
 	})
