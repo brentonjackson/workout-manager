@@ -39,8 +39,8 @@ export default class EditWorkout extends Component {
     this.state = {
       redirect: null,
       workout_title: "",
-      workout_tags: [""],
-      workout_description: [""],
+      workout_tags: "",
+      workout_description: "",
       workout_responsible: "",
       workout_difficulty: "",
       workout_times_completed: 0,
@@ -129,13 +129,18 @@ export default class EditWorkout extends Component {
       workout_completed_date: this.state.workout_completed_date,
     };
     axios
-      .post(baseUrl + 
+      .patch(baseUrl + 
         "workouts/update/" + this.props.match.params.id,
         obj
       )
-      .then((res) => console.log(res.data));
+      .then((res) => {console.log(res.data); this.setState({ redirect: "/workouts" });}).catch((error) => {
+        alert(error?.response?.data)
+       
+                  console.log(error?.response);
+                  
+              });
 
-    this.setState({ redirect: "/workouts" });
+    
   }
 
   deleteWorkout(e) {

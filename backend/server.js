@@ -94,7 +94,7 @@ routes.route('/delete/:id').delete((req, res, next) => {
 })
 
 // update endpoint route
-routes.route('/update/:id').post((req, res) => {
+routes.route('/update/:id').patch((req, res) => {
 	Workout.findById(req.params.id, (err, workout) => {
 		if (!workout) {
 			res.status(404).send('data is not found');
@@ -111,7 +111,8 @@ routes.route('/update/:id').post((req, res) => {
 				res.json('Workout updated!');
 			})
 			.catch(err => {
-				res.status(400).send('Update not possible');
+				// let error = workout.validateSync()
+				res.status(400).send(String(err).split(':')[2]);
 			});
 		}
 	})

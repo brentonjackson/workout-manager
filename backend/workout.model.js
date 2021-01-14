@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 const WorkoutSchema  = new Schema({
     workout_title: {
         type: String,
-        required: true
+        required: [true, 'Why no title?']
     },
     workout_tags: {
-        type: [String]
+        type: String
     },
     workout_description: {
-        type: [String],
-        required: true
+        type: String,
+        required: [true, 'Why no description?']
     },
     workout_responsible: {
     	type: String
@@ -23,7 +23,8 @@ const WorkoutSchema  = new Schema({
     	type: Number
     },
     workout_completed_date: {
-    	type: String, default: new Date().toString()
+        type: String, default: new Date().toString(),
+        required: true
     }
 });
 

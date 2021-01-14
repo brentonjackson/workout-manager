@@ -17,8 +17,8 @@ export default class CreateWorkout extends Component {
     this.state = {
       redirect: null,
       workout_title: "",
-      workout_tags: [""],
-      workout_description: [""],
+      workout_tags: "",
+      workout_description: "",
       workout_responsible: "",
       workout_difficulty: "",
       workout_times_completed: 0,

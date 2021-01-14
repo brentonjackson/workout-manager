@@ -106,7 +106,6 @@ export default class WorkoutList extends Component {
 			console.log('workouts', this.state.workouts)
 		})
 		.catch(function (error){
-			
 			console.log(error);
 			this.setState({...this.state, isLoading: false});
 		})
