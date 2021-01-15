@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { HashLink } from "react-router-hash-link";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav, Container } from "react-bootstrap";
@@ -11,9 +10,11 @@ import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import MotivationPage from "./components/MotivationPage";
 
 const MyNav = styled(Nav)`
   z-index: 10;
+  font-size: small;
 `;
 
 const WorkoutContainer = styled(Container)`
@@ -57,6 +58,12 @@ class App extends Component {
                   Create Workout
                 </Link>
               </li>
+              <li className="navbar-item">
+                {/* <Link to="/motivation" className="nav-link">
+                  Motivation
+                </Link> */}
+                <a className="nav-link" href="https://musing-mclean-fefe4c.netlify.app/">Motivation</a>
+              </li>
             </ul>
           </div>
         </MyNav>
@@ -67,6 +74,8 @@ class App extends Component {
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
         <Route path="/profile" component={Profile} />
+        <Route path="/motivation" component={MotivationPage} />
+        
         </WorkoutContainer>
       </Router>
     );
