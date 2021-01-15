@@ -10,7 +10,6 @@ import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import MotivationPage from "./components/MotivationPage";
 
 const MyNav = styled(Nav)`
   z-index: 10;
@@ -74,7 +73,6 @@ class App extends Component {
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
         <Route path="/profile" component={Profile} />
-        <Route path="/motivation" component={MotivationPage} />
         
         </WorkoutContainer>
       </Router>
