@@ -13,7 +13,7 @@ import Profile from "./components/Profile";
 
 const MyNav = styled(Nav)`
   z-index: 10;
-  font-size: small;
+  font-size: large;
 `;
 
 const WorkoutContainer = styled(Container)`
