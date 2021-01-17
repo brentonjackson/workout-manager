@@ -25,7 +25,7 @@ const Workout = ({workout}) => (
 			</Card.Link>
 		</Card.Body>
 		<Card.Footer>
-				<small className="text-muted">Last completed on: {new Date(workout.workout_completed_date).toLocaleDateString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
+				<small className="text-muted">Last completed on: {new Date(workout.workout_completed_date).toLocaleDateString('en-US',{ timeZone: 'UTC', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</small>
 		</Card.Footer>
 	</Card>
 )
