@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import { Card, CardDeck } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import styled from 'styled-components';
 
 	
 
@@ -15,7 +13,7 @@ const Workout = ({workout}) => (
 	<Card>
 		<Card.Body>
 			<Card.Title>{workout.workout_title}</Card.Title>
-			<Card.Subtitle className="mb-4 text-muted">{workout.workout_tags}</Card.Subtitle>
+			<Card.Subtitle className="mb-4 text-muted">{Array(workout.workout_tags.join(", "))}</Card.Subtitle>
 			<Card.Text>Description: {workout.workout_description}</Card.Text>
 			<Card.Text>For: {workout.workout_responsible}</Card.Text>
 			<Card.Text>Difficulty Level: {workout.workout_difficulty}</Card.Text>
@@ -50,7 +48,7 @@ export default class WorkoutList extends Component {
 		this.deleteWorkout = this.deleteWorkout.bind(this);
 		this.state = {workouts: null,
 		redirect: null,
-	isLoading: false};
+		isLoading: false};
 	}
 
 	// method to delete entries
@@ -107,7 +105,9 @@ export default class WorkoutList extends Component {
 		})
 		.catch(function (error){
 			console.log(error);
-			this.setState({...this.state, isLoading: false});
+			if (this?.state) {
+				this.setState({...this.state, isLoading: false});
+			}
 		})
 	}
     

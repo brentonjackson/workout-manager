@@ -6,9 +6,8 @@ const WorkoutSchema  = new Schema({
         type: String,
         required: [true, 'Why no title?']
     },
-    workout_tags: {
-        type: String
-    },
+    workout_tags:  [{type: String}]
+    ,
     workout_description: {
         type: String,
         required: [true, 'Why no description?']

@@ -17,7 +17,7 @@ export default class CreateWorkout extends Component {
     this.state = {
       redirect: null,
       workout_title: "",
-      workout_tags: "",
+      workout_tags: [],
       workout_description: "",
       workout_responsible: "",
       workout_difficulty: "",
@@ -52,7 +52,7 @@ export default class CreateWorkout extends Component {
 
   onChangeWorkoutTags(e) {
     this.setState({
-      workout_tags: e.target.value,
+      workout_tags: (e.target.value.split(",")),
     });
   }
 
@@ -95,7 +95,7 @@ export default class CreateWorkout extends Component {
 
     const newWorkout = {
       workout_title: this.state.workout_title,
-      workout_tags: this.state.workout_tags,
+      workout_tags: this.state.workout_tags.map(tag => tag.replace(/\s/g, '')),
       workout_description: this.state.workout_description,
       workout_responsible: this.state.workout_responsible,
       workout_difficulty: this.state.workout_difficulty,
@@ -112,6 +112,7 @@ export default class CreateWorkout extends Component {
 
   render() {
        if (this.state.redirect) {
+         setTimeout(500);
     return <Redirect to={this.state.redirect} />
   }
     return (
