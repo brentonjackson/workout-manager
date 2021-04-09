@@ -2,8 +2,6 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
 
-
-
 const Quote = styled(Card)`
   color: black;
 `;
@@ -13,7 +11,6 @@ const Screen = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
- 
 `;
 
 function Dashboard(props) {
@@ -27,7 +24,6 @@ function Dashboard(props) {
 
   return (
     <Screen>
-      
       <div>
         <Quote>
           <Card.Body>
