@@ -1,30 +1,29 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const compression = require('compression');
-const helmet = require('helmet');
-require('dotenv').config();
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const compression = require("compression");
+const helmet = require("helmet");
+require("dotenv").config();
 
 // const proxy = require('http-proxy-middleware')
 
-
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-
 // add mongodb
-const mongoose = require('mongoose');
-let Workout = require('./workout.model');
+const mongoose = require("mongoose");
+let Workout = require("./model").Workout;
+let Exercise = require("./model").Exercise;
 const PORT = process.env.PORT || 4000;
 
 // compress all routes
 app.use(compression());
 
-const path = require('path');
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+const path = require("path");
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 // app.use(express.static('../build/'));
 // app.get("*", (req,res)=> {
@@ -33,16 +32,17 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // setup and get the default mongoose connection
 const mongoDB = process.env.MONGODB_URI || process.env.DEV_DB_CONNECTION;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 
-connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+connection.on(
+  "error",
+  console.error.bind(console, "MongoDB connection error:")
+);
 
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
-})
-
-
+connection.once("open", function () {
+  console.log("MongoDB database connection established successfully");
+});
 
 //****************************************************** setup api endpoints *************************************************************************
 const routes = express.Router();
@@ -61,71 +61,74 @@ routes.route('/').get((req,res) => {
 });
 
 // endpoint to retrieve workout item
-routes.route('/:id').get((req, res) => {
-	let id = req.params.id;
-	Workout.findById(id, (err, workout) => {
-		res.json(workout);
-	});
+routes.route("/:id").get((req, res) => {
+  let id = req.params.id;
+  Workout.findById(id, (err, workout) => {
+    res.json(workout);
+  });
 });
 
 // Post endpoint route
-routes.route('/add').post((req, res) => {
-	let workout = new Workout(req.body);
-	workout.save(workout)
-		.then(workout => {
-			res.status(200).json({'workout': 'workout added successfully'});
-		})
-		.catch(err => {
-			res.status(400).send('adding new workout failed');
-		});
+routes.route("/add").post((req, res) => {
+  let workout = new Workout(req.body);
+  workout
+    .save(workout)
+    .then((workout) => {
+      res.status(200).json({ workout: "workout added successfully" });
+    })
+    .catch((err) => {
+      res.status(400).send("adding new workout failed");
+    });
 });
 
 // delete workout
-routes.route('/delete/:id').delete((req, res, next) => {
-	Workout.findByIdAndRemove(req.params.id, (err, workout) => {
-		if (err) {
-			return next(err);
-		} else {
-			res.status(200).json({
-				msg: workout
-			})
-		}
-	})
-})
-
-// update endpoint route
-routes.route('/update/:id').patch((req, res) => {
-	Workout.findById(req.params.id, (err, workout) => {
-		if (!workout) {
-			res.status(404).send('data is not found');
-		} else {
-			workout.workout_title = req.body.workout_title;
-			workout.workout_tags = req.body.workout_tags;
-			workout.workout_description = req.body.workout_description;
-			workout.workout_responsible = req.body.workout_responsible;
-			workout.workout_difficulty = req.body.workout_difficulty;
-			workout.workout_times_completed = req.body.workout_times_completed;
-			workout.workout_completed_date = req.body.workout_completed_date;
-
-			workout.save().then(workout => {
-				res.json('Workout updated!');
-			})
-			.catch(err => {
-				// let error = workout.validateSync()
-				res.status(400).send(String(err).split('ValidationError:')[1].split(','));
-			});
-		}
-	})
-})
-
-app.use('/workouts', routes);
-app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+routes.route("/delete/:id").delete((req, res, next) => {
+  Workout.findByIdAndRemove(req.params.id, (err, workout) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.status(200).json({
+        msg: workout,
+      });
+    }
+  });
 });
 
+// update endpoint route
+routes.route("/update/:id").patch((req, res) => {
+  Workout.findById(req.params.id, (err, workout) => {
+    if (!workout) {
+      res.status(404).send("data is not found");
+    } else {
+      workout.workout_title = req.body.workout_title;
+      workout.workout_tags = req.body.workout_tags;
+      workout.workout_description = req.body.workout_description;
+      workout.workout_responsible = req.body.workout_responsible;
+      workout.workout_difficulty = req.body.workout_difficulty;
+      workout.workout_times_completed = req.body.workout_times_completed;
+      workout.workout_completed_date = req.body.workout_completed_date;
 
+      workout
+        .save()
+        .then((workout) => {
+          res.json("Workout updated!");
+        })
+        .catch((err) => {
+          // let error = workout.validateSync()
+          res
+            .status(400)
+            .send(String(err).split("ValidationError:")[1].split(","));
+        });
+    }
+  });
+});
 
+app.use("/workouts", require("./routes/workouts"));
+app.use("/exercises", require("./routes/exercises"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
 
-app.listen(PORT, function() {
-    console.log(`Server is running on Port: ${PORT}`);
+app.listen(PORT, function () {
+  console.log(`Server is running on Port: ${PORT}`);
 });
