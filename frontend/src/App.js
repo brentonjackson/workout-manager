@@ -74,7 +74,8 @@ const App = () => {
     getUser();
   }, []);
 
-  return user ? (
+  // return user ? (
+  return (
     <Router>
       <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link to="/" className="navbar-brand">
@@ -108,10 +109,10 @@ const App = () => {
             </li> */}
           </ul>
         </div>
-        <div>
-          {/* Signed in as <b>{user.attributes.email}</b> */}
-          <Login loggedIn={user} loginName={user.attributes.email} />
-        </div>
+        {/* <div> */}
+        {/* Signed in as <b>{user.attributes.email}</b> */}
+        {/* <Login loggedIn={user} loginName={user.attributes.email} /> */}
+        {/* </div> */}
       </MyNav>
       <br />
       {/* <Dashboard /> */}
@@ -123,21 +124,21 @@ const App = () => {
         <Route path="/profile" component={Profile} />
       </WorkoutContainer>
     </Router>
-  ) : (
-    <Router>
-      <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
-          <div className="navbar-nav">
-            <Login />
-            {/* <AmplifySignOut /> */}
-          </div>
-        </div>
-      </MyNav>
-      <WorkoutContainer2>
-        <Welcome />
-      </WorkoutContainer2>
-    </Router>
+    // ) : (
+    //   <Router>
+    //     <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
+    //       <div className="collapse navbar-collapse">
+    //         <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+    //         <div className="navbar-nav">
+    //           <Login />
+    //           {/* <AmplifySignOut /> */}
+    //         </div>
+    //       </div>
+    //     </MyNav>
+    //     <WorkoutContainer2>
+    //       <Welcome />
+    //     </WorkoutContainer2>
+    //   </Router>
   );
 };
 
