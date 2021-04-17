@@ -15,7 +15,6 @@ routes
         console.log(err);
       } else {
         if (Object.keys(req.query).length > 0) {
-          console.log(req.query);
           let query = req.query;
           let keys = Object.keys(query);
           let values = Object.values(query);
@@ -28,7 +27,6 @@ routes
           };
           res.json(response);
         } else {
-          console.log(req.query);
           const response = {
             count: workouts.length,
             workouts: workouts,
@@ -63,7 +61,6 @@ routes
     workout
       .save(workout)
       .then((workout) => {
-        console.log(workout);
         res.status(200).json({
           message: "workout added successfully",
           createdWorkout: workout,
@@ -82,7 +79,6 @@ routes
       if (Object.keys(req.query).length > 0) {
         let query = req.query;
         let keys = Object.keys(query);
-        console.log(keys[0]);
         workout[keys[0]]
           ? res.json(workout[keys[0]])
           : res.status(400).send("Error: invalid query");

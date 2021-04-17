@@ -3,9 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
-
 const WorkoutContainer = styled.div`
-   min-height: 80vh;
+  min-height: 80vh;
   // margin-top: 7.5em;
   color: white;
 `;
@@ -17,29 +16,16 @@ export default class CreateWorkout extends Component {
     this.state = {
       redirect: null,
       workout_title: "",
-      workout_tags: [],
-      workout_description: "",
-      workout_responsible: "",
-      workout_difficulty: "",
-      workout_times_completed: 0,
-      workout_completed_date: new Date().toString(),
+      duration: undefined,
+      exercises: [{ name: "", sets: 0, reps: 0 }],
+      date: new Date().toString(),
     };
 
     this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
-    this.onChangeWorkoutTags = this.onChangeWorkoutTags.bind(this);
-    this.onChangeWorkoutDescription = this.onChangeWorkoutDescription.bind(
-      this
-    );
-    this.onChangeWorkoutResponsible = this.onChangeWorkoutResponsible.bind(
-      this
-    );
-    this.onChangeWorkoutDifficulty = this.onChangeWorkoutDifficulty.bind(this);
-    this.onChangeWorkoutTimesCompleted = this.onChangeWorkoutTimesCompleted.bind(
-      this
-    );
-    this.onChangeWorkoutCompletedDate = this.onChangeWorkoutCompletedDate.bind(
-      this
-    );
+    this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
+    this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
+    this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -50,71 +36,66 @@ export default class CreateWorkout extends Component {
     });
   }
 
-  onChangeWorkoutTags(e) {
+  onChangeExerciseName(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].name = e.target.value;
+    this.setState(stateCopy);
+  }
+  onChangeExerciseSets(i, e) {
+    // this.setState({
+    //   exercises: { sets: e.target.value },
+    // });
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].sets = e.target.value;
+    this.setState(stateCopy);
+  }
+  onChangeExerciseReps(i, e) {
+    // this.setState({
+    //   exercises: { reps: e.target.value },
+    // });
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].reps = e.target.value;
+    this.setState(stateCopy);
+  }
+
+  onChangeDuration(e) {
     this.setState({
-      workout_tags: (e.target.value.split(",")),
+      duration: e.target.value,
     });
   }
 
-  onChangeWorkoutDescription(e) {
+  onChangeWorkoutDate(e) {
     this.setState({
-      workout_description: e.target.value,
-    });
-  }
-
-  onChangeWorkoutResponsible(e) {
-    this.setState({
-      workout_responsible: e.target.value,
-    });
-  }
-
-  onChangeWorkoutDifficulty(e) {
-    this.setState({
-      workout_difficulty: e.target.value,
-    });
-  }
-
-  onChangeWorkoutTimesCompleted(e) {
-    this.setState({
-      workout_times_completed: e.target.value,
-    });
-  }
-
-  onChangeWorkoutCompletedDate(e) {
-    this.setState({
-      workout_completed_date: e.target.value,
+      date: e.target.value,
     });
   }
 
   onSubmit(e) {
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://intense-ridge-39955.herokuapp.com/' : 'http://localhost:4000/'
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://intense-ridge-39955.herokuapp.com/"
+        : "http://localhost:4000/";
     e.preventDefault();
-
-
-
 
     const newWorkout = {
       workout_title: this.state.workout_title,
-      workout_tags: this.state.workout_tags.map(tag => tag.replace(/\s/g, '')),
-      workout_description: this.state.workout_description,
-      workout_responsible: this.state.workout_responsible,
-      workout_difficulty: this.state.workout_difficulty,
-      workout_times_completed: this.state.workout_times_completed,
-      workout_completed_date: this.state.workout_completed_date,
+      date: this.state.date,
+      duration: this.state.duration,
+      exercises: this.state.exercises,
     };
 
     axios
-      .post(baseUrl + "workouts/add", newWorkout)
+      .post(baseUrl + "workouts/", newWorkout)
       .then((res) => console.log(res.data));
 
     this.setState({ redirect: "/workouts" });
   }
 
   render() {
-       if (this.state.redirect) {
-         setTimeout(500);
-    return <Redirect to={this.state.redirect} />
-  }
+    if (this.state.redirect) {
+      setTimeout(500);
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <WorkoutContainer>
         <h3>Create New Workout</h3>
@@ -128,90 +109,81 @@ export default class CreateWorkout extends Component {
               onChange={this.onChangeWorkoutTitle}
             />
           </div>
-          <div className="form-group">
-            <label>Description: </label>
-            <textarea
-              name="description"
-              className="form-control"
-              value={this.state.workout_description}
-              onChange={this.onChangeWorkoutDescription}
-            />
-          </div>
-          <div className="form-group">
-            <label>Responsible: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.workout_responsible}
-              onChange={this.onChangeWorkoutResponsible}
-            />
-          </div>
-          <div className="form-group">
-            <label>Difficulty: </label>
-            <br />
-            <div className="form-check form-check-inline">
+          {this.state.exercises.length > 0 ? (
+            this.state.exercises.map((element, i) => {
+              console.log("first condition");
+              return (
+                <div className="form-group">
+                  <label>Exercise {i + 1} Name:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.exercises[i].name}
+                    onChange={this.onChangeExerciseName.bind(this, i)}
+                  />
+                  <label>Exercise {i + 1} Sets:</label>
+                  <input
+                    type="number"
+                    min="1"
+                    className="form-control"
+                    value={this.state.exercises[i].sets}
+                    onChange={this.onChangeExerciseSets.bind(this, i)}
+                  />
+                  <label>Exercise {i + 1} Reps:</label>
+                  <input
+                    type="number"
+                    min="1"
+                    className="form-control"
+                    value={this.state.exercises[i].reps}
+                    onChange={this.onChangeExerciseReps.bind(this, i)}
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <div className="form-group">
+              <label>Exercise 1 Name:</label>
               <input
-                className="form-check-input"
-                type="radio"
-                name="difficultyOptions"
-                id="difficultyEasy"
-                value="Easy"
-                checked={this.state.workout_difficulty === "Easy"}
-                onChange={this.onChangeWorkoutDifficulty}
+                type="text"
+                className="form-control"
+                value={this.state.exercises[0].name}
+                onChange={this.onChangeExerciseName}
               />
-              <label className="form-check-label">Easy</label>
-            </div>
-            <div className="form-check form-check-inline">
+              <label>Exercise 1 Sets:</label>
               <input
-                className="form-check-input"
-                type="radio"
-                name="difficultyOptions"
-                id="difficultyMedium"
-                value="Medium"
-                checked={this.state.workout_difficulty === "Medium"}
-                onChange={this.onChangeWorkoutDifficulty}
+                type="number"
+                min="1"
+                className="form-control"
+                value={this.state.exercises[0].sets}
+                onChange={this.onChangeExerciseSets}
               />
-              <label className="form-check-label">Medium</label>
-            </div>
-            <div className="form-check form-check-inline">
+              <label>Exercise 1 Reps:</label>
               <input
-                className="form-check-input"
-                type="radio"
-                name="difficultyOptions"
-                id="difficultyHard"
-                value="Hard"
-                checked={this.state.workout_difficulty === "Hard"}
-                onChange={this.onChangeWorkoutDifficulty}
+                type="number"
+                min="1"
+                className="form-control"
+                value={this.state.exercises[0].reps}
+                onChange={this.onChangeExerciseReps}
               />
-              <label className="form-check-label">Hard</label>
             </div>
-          </div>
+          )}
           <div className="form-group">
-            <label>Times Completed: </label>
+            <label>Duration (in mins): </label>
             <input
               type="number"
               className="form-control"
-              min="0"
-              value={this.state.workout_times_completed}
-              onChange={this.onChangeWorkoutTimesCompleted}
+              value={this.state.duration}
+              min="1"
+              onChange={this.onChangeDuration}
             />
           </div>
           <div className="form-group">
-            <label>Date Last Completed: </label>
+            <label>Date: </label>
             <input
               type="date"
               className="form-control"
-              value={this.state.workout_completed_date}
+              value={this.state.date}
               onChange={this.onChangeWorkoutCompletedDate}
-            />
-          </div>
-          <div className="form-group">
-            <label>Tags: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.workout_tags}
-              onChange={this.onChangeWorkoutTags}
             />
           </div>
           <div className="form-group">

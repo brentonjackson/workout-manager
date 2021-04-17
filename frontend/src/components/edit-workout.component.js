@@ -17,20 +17,10 @@ export default class EditWorkout extends Component {
     super(props);
 
     this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
-    this.onChangeWorkoutTags = this.onChangeWorkoutTags.bind(this);
-    this.onChangeWorkoutDescription = this.onChangeWorkoutDescription.bind(
-      this
-    );
-    this.onChangeWorkoutResponsible = this.onChangeWorkoutResponsible.bind(
-      this
-    );
-    this.onChangeWorkoutDifficulty = this.onChangeWorkoutDifficulty.bind(this);
-    this.onChangeWorkoutTimesCompleted = this.onChangeWorkoutTimesCompleted.bind(
-      this
-    );
-    this.onChangeWorkoutCompletedDate = this.onChangeWorkoutCompletedDate.bind(
-      this
-    );
+    this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
+    this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
+    this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteWorkout = this.deleteWorkout.bind(this);
 
@@ -67,44 +57,31 @@ export default class EditWorkout extends Component {
 
   // methods to update state
   onChangeWorkoutTitle(e) {
+    console.log(e.target.value);
     this.setState({
       workout_title: e.target.value,
     });
   }
 
-  onChangeWorkoutTags(e) {
-    this.setState({
-      workout_tags: e.target.value.split(","),
-    });
+  onChangeExerciseName(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].name = e.target.value;
+    this.setState(stateCopy);
+  }
+  onChangeExerciseSets(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].sets = e.target.value;
+    this.setState(stateCopy);
+  }
+  onChangeExerciseReps(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].reps = e.target.value;
+    this.setState(stateCopy);
   }
 
-  onChangeWorkoutDescription(e) {
+  onChangeDuration(e) {
     this.setState({
-      workout_description: e.target.value,
-    });
-  }
-
-  onChangeWorkoutResponsible(e) {
-    this.setState({
-      workout_responsible: e.target.value,
-    });
-  }
-
-  onChangeWorkoutDifficulty(e) {
-    this.setState({
-      workout_difficulty: e.target.value,
-    });
-  }
-
-  onChangeWorkoutTimesCompleted(e) {
-    this.setState({
-      workout_times_completed: e.target.value,
-    });
-  }
-
-  onChangeWorkoutCompletedDate(e) {
-    this.setState({
-      date: e.target.value,
+      duration: e.target.value,
     });
   }
 
@@ -188,28 +165,25 @@ export default class EditWorkout extends Component {
                 <label>Exercise {i + 1} Name:</label>
                 <input
                   type="text"
-                  name="name"
                   className="form-control"
                   value={this.state.exercises[i].name}
-                  onChange={this.onChangeExerciseName}
+                  onChange={this.onChangeExerciseName.bind(this, i)}
                 />
                 <label>Exercise {i + 1} Sets:</label>
                 <input
                   type="number"
-                  name="sets"
                   min="1"
                   className="form-control"
                   value={this.state.exercises[i].sets}
-                  onChange={this.onChangeExerciseSets}
+                  onChange={this.onChangeExerciseSets.bind(this, i)}
                 />
                 <label>Exercise {i + 1} Reps:</label>
                 <input
                   type="number"
-                  name="reps"
                   min="1"
                   className="form-control"
                   value={this.state.exercises[i].reps}
-                  onChange={this.onChangeExerciseReps}
+                  onChange={this.onChangeExerciseReps.bind(this, i)}
                 />
               </div>
             );
