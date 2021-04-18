@@ -47,7 +47,10 @@ routes
     let workout = new Workout({
       _id: new mongoose.Types.ObjectId(),
       workout_title: req.body.workout_title,
-      exercises: req.body.exercises,
+      exercises: req.body.exercises.map((obj) => ({
+        ...obj,
+        _id: new mongoose.Types.ObjectId(),
+      })),
       date: req.body.date,
       duration: req.body.duration,
     });
