@@ -32,11 +32,20 @@ const WorkoutContainer = styled(Container)`
   justify-content: center;
 
   @media (min-width: 768px) {
-    padding: 0px 100px 150px;
+    padding: 0px 50px 150px;
   }
 
   @media (min-width: 992px) {
     margin-top: 100px;
+  }
+  @media (min-width: 1700px) {
+    max-width: 1500px;
+  }
+  @media (min-width: 2000px) {
+    max-width: 1800px;
+  }
+  @media (min-width: 2500px) {
+    max-width: 2200px;
   }
 `;
 

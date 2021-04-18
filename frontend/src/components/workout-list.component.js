@@ -3,9 +3,31 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Card, CardDeck } from "react-bootstrap";
+import styled from "styled-components";
+
+const ResponsiveCardDeck = styled(CardDeck)`
+  @media (max-width: 1199px) {
+    justify-content: center;
+  }
+  @media (min-width: 576px) {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  @media (min-width: 1200px) {
+    justify-content: center;
+  }
+`;
 
 const Workout = ({ workout }) => (
-  <Card>
+  <Card
+    style={{
+      width: "18rem",
+      maxWidth: "300px",
+      marginBottom: "15px",
+      marginLeft: "0",
+      flex: "auto",
+    }}
+  >
     <Card.Body>
       <Card.Title>{workout.workout_title}</Card.Title>
       {workout.exercises.map((element, i) => {
@@ -97,7 +119,7 @@ export default class WorkoutList extends Component {
   componentDidMount() {
     this._loadWorkouts();
     // load every 30 seconds
-    this.timer = setInterval(() => this._loadWorkouts(), 30000);
+    // this.timer = setInterval(() => this._loadWorkouts(), 30000);
   }
 
   componentWillUnmount() {
@@ -135,15 +157,21 @@ export default class WorkoutList extends Component {
       return <Redirect to={this.state.redirect} />;
     }
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <h3
           className="text-center text-white"
           style={{ marginBottom: "25px", marginTop: "20px" }}
         >
           {" "}
-          Workout Hub
+          Workouts
         </h3>
-        <CardDeck>
+        <ResponsiveCardDeck>
           <h4 className="text-center text-white">
             {this.state.isLoading ? "Loading workouts....." : ""}
           </h4>
@@ -154,7 +182,7 @@ export default class WorkoutList extends Component {
                 <Workout workout={currentWorkout} key={i} />
               ))
             : ""}
-        </CardDeck>
+        </ResponsiveCardDeck>
       </div>
     );
   }
