@@ -5,11 +5,23 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
 const UpdateDiv = styled.div`
-  height: 100vh;
-  padding-top: 25px;
   justify-content: center;
   display: flex;
   flex-direction: column;
+  color: white;
+  margin: 0px 0 50px;
+
+  @media (min-width: 426px) {
+    width: 80%;
+    max-width: 700px;
+  }
+`;
+const Title = styled.h3`
+  margin: 25px 0 35px;
+  text-align: center;
+  @media (min-width: 992px) {
+    margin: 0 0 50px;
+  }
 `;
 
 export default class EditWorkout extends Component {
@@ -145,10 +157,13 @@ export default class EditWorkout extends Component {
       return <Redirect to={this.state.redirect} />;
     }
     return (
-      <UpdateDiv style={{ marginTop: "0px", color: "white" }}>
-        <h3 className="text-center text-white" style={{ marginBottom: "70px" }}>
+      <UpdateDiv>
+        <Title
+          className="text-center text-white"
+          style={{ marginBottom: "35px" }}
+        >
           Update Workout
-        </h3>
+        </Title>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Title: </label>

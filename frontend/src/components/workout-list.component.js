@@ -18,6 +18,14 @@ const ResponsiveCardDeck = styled(CardDeck)`
   }
 `;
 
+const Title = styled.h3`
+  margin: 25px 0 20px;
+
+  @media (min-width: 992px) {
+    margin: 0 0 50px;
+  }
+`;
+
 const Workout = ({ workout }) => (
   <Card
     style={{
@@ -160,13 +168,7 @@ export default class WorkoutList extends Component {
           flexDirection: "column",
         }}
       >
-        <h3
-          className="text-center text-white"
-          style={{ marginBottom: "25px", marginTop: "20px" }}
-        >
-          {" "}
-          Workouts
-        </h3>
+        <Title className="text-center text-white"> Workouts</Title>
         <ResponsiveCardDeck>
           <h4 className="text-center text-white">
             {this.state.isLoading ? "Loading workouts....." : ""}

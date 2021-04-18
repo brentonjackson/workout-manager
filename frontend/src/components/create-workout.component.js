@@ -3,10 +3,25 @@ import axios from "axios";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
-const WorkoutContainer = styled.div`
-  min-height: 80vh;
-  // margin-top: 7.5em;
+const CreateDiv = styled.div`
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   color: white;
+  margin: 0px 0 50px;
+
+  @media (min-width: 426px) {
+    width: 80%;
+    max-width: 700px;
+  }
+`;
+
+const Title = styled.h3`
+  margin: 25px 0 35px;
+  text-align: center;
+  @media (min-width: 992px) {
+    margin: 0 0 50px;
+  }
 `;
 
 export default class CreateWorkout extends Component {
@@ -97,8 +112,8 @@ export default class CreateWorkout extends Component {
       return <Redirect to={this.state.redirect} />;
     }
     return (
-      <WorkoutContainer>
-        <h3>Create New Workout</h3>
+      <CreateDiv>
+        <Title>Create New Workout</Title>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Title: </label>
@@ -194,7 +209,7 @@ export default class CreateWorkout extends Component {
             />
           </div>
         </form>
-      </WorkoutContainer>
+      </CreateDiv>
     );
   }
 }
