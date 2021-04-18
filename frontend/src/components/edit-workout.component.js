@@ -16,14 +16,6 @@ export default class EditWorkout extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
-    this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
-    this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
-    this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
-    this.onChangeDuration = this.onChangeDuration.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.deleteWorkout = this.deleteWorkout.bind(this);
-
     this.state = {
       redirect: null,
       workout_title: "",
@@ -31,6 +23,14 @@ export default class EditWorkout extends Component {
       exercises: [],
       date: new Date().toString(),
     };
+
+    this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
+    this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
+    this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
+    this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.onChangeDuration = this.onChangeDuration.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.deleteWorkout = this.deleteWorkout.bind(this);
   }
 
   componentDidMount() {

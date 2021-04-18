@@ -82,7 +82,8 @@ export default class WorkoutList extends Component {
   constructor(props) {
     super(props);
     this.deleteWorkout = this.deleteWorkout.bind(this);
-    this.state = { workouts: null, redirect: null, isLoading: false };
+    let workouts = this._loadWorkouts();
+    this.state = { workouts: workouts, redirect: null, isLoading: false };
   }
 
   // method to delete entries
@@ -112,14 +113,8 @@ export default class WorkoutList extends Component {
     this.setState({ redirect: "/" });
   }
 
-  componentWillMount() {
-    this._loadWorkouts();
-  }
-
   componentDidMount() {
     this._loadWorkouts();
-    // load every 30 seconds
-    // this.timer = setInterval(() => this._loadWorkouts(), 30000);
   }
 
   componentWillUnmount() {
@@ -143,6 +138,7 @@ export default class WorkoutList extends Component {
       .then((response) => {
         this.setState({ workouts: response.data.workouts, isLoading: false });
         console.log("workouts", this.state.workouts);
+        return response.data.workouts;
       })
       .catch(function (error) {
         console.log(error);
