@@ -14,8 +14,7 @@ const WorkoutSchema = new Schema({
   duration: Number,
   exercises: [
     {
-      _id: Schema.Types.ObjectId,
-      name: { type: String, required: true, unique: true },
+      name: { type: String, required: true },
       sets: Number,
       reps: Number,
       duration: Number,
