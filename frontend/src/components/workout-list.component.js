@@ -177,9 +177,11 @@ export default class WorkoutList extends Component {
           {this.state.isLoading
             ? ""
             : this.state.workouts
-            ? this.state.workouts.map((currentWorkout, i) => (
-                <Workout workout={currentWorkout} key={i} />
-              ))
+            ? this.state.workouts.length > 0
+              ? this.state.workouts.map((currentWorkout, i) => (
+                  <Workout workout={currentWorkout} key={i} />
+                ))
+              : "Go ahead and track a workout!"
             : ""}
         </ResponsiveCardDeck>
       </div>

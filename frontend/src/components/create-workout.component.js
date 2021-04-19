@@ -10,9 +10,6 @@ const CreateDiv = styled.div`
   color: white;
   margin: 0px 0 50px;
 
-  .form-control {
-    box-shadow: -7px 7px 8px #00000026;
-  }
   @media (min-width: 426px) {
     width: 80%;
     max-width: 700px;
@@ -37,13 +34,17 @@ export default class CreateWorkout extends Component {
       duration: undefined,
       exercises: [{ name: "", sets: 0, reps: 0 }],
       date: new Date().toString(),
+      exerciseFields: 1,
     };
 
     this.onChangeWorkoutTitle = this.onChangeWorkoutTitle.bind(this);
     this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
     this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
     this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.addExercise = this.addExercise.bind(this);
+    this.removeExercise = this.removeExercise.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
+    this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -82,7 +83,7 @@ export default class CreateWorkout extends Component {
     });
   }
 
-  onChangeWorkoutDate(e) {
+  onChangeDate(e) {
     this.setState({
       date: e.target.value,
     });
@@ -109,6 +110,20 @@ export default class CreateWorkout extends Component {
     this.setState({ redirect: "/workouts" });
   }
 
+  addExercise() {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises.push({ name: "", sets: 0, reps: 0 });
+    this.setState(stateCopy);
+    console.log(this.state.exercises);
+  }
+
+  removeExercise() {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises.pop();
+    this.setState(stateCopy);
+    console.log(this.state.exercises);
+  }
+
   render() {
     if (this.state.redirect) {
       setTimeout(500);
@@ -127,64 +142,40 @@ export default class CreateWorkout extends Component {
               onChange={this.onChangeWorkoutTitle}
             />
           </div>
-          {this.state.exercises.length > 0 ? (
-            this.state.exercises.map((element, i) => {
-              console.log("first condition");
-              return (
-                <div className="form-group">
-                  <label>Exercise {i + 1} Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={this.state.exercises[i].name}
-                    onChange={this.onChangeExerciseName.bind(this, i)}
-                  />
-                  <label>Exercise {i + 1} Sets:</label>
-                  <input
-                    type="number"
-                    min="1"
-                    className="form-control"
-                    value={this.state.exercises[i].sets}
-                    onChange={this.onChangeExerciseSets.bind(this, i)}
-                  />
-                  <label>Exercise {i + 1} Reps:</label>
-                  <input
-                    type="number"
-                    min="1"
-                    className="form-control"
-                    value={this.state.exercises[i].reps}
-                    onChange={this.onChangeExerciseReps.bind(this, i)}
-                  />
-                </div>
-              );
-            })
-          ) : (
-            <div className="form-group">
-              <label>Exercise 1 Name:</label>
-              <input
-                type="text"
-                className="form-control"
-                value={this.state.exercises[0].name}
-                onChange={this.onChangeExerciseName}
-              />
-              <label>Exercise 1 Sets:</label>
-              <input
-                type="number"
-                min="1"
-                className="form-control"
-                value={this.state.exercises[0].sets}
-                onChange={this.onChangeExerciseSets}
-              />
-              <label>Exercise 1 Reps:</label>
-              <input
-                type="number"
-                min="1"
-                className="form-control"
-                value={this.state.exercises[0].reps}
-                onChange={this.onChangeExerciseReps}
-              />
-            </div>
+          {this.state.exercises.map((element, i) => {
+            return (
+              <div className="form-group">
+                <label>Exercise {i + 1} Name:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.exercises[i].name}
+                  onChange={this.onChangeExerciseName.bind(this, i)}
+                />
+                <label>Exercise {i + 1} Sets:</label>
+                <input
+                  type="number"
+                  min="1"
+                  className="form-control"
+                  value={this.state.exercises[i].sets}
+                  onChange={this.onChangeExerciseSets.bind(this, i)}
+                />
+                <label>Exercise {i + 1} Reps:</label>
+                <input
+                  type="number"
+                  min="1"
+                  className="form-control"
+                  value={this.state.exercises[i].reps}
+                  onChange={this.onChangeExerciseReps.bind(this, i)}
+                />
+              </div>
+            );
+          })}
+          <button onClick={this.addExercise}>Add exercise</button>
+          {this.state.exercises.length > 1 && (
+            <button onClick={this.removeExercise}>Remove exercise</button>
           )}
+
           <div className="form-group">
             <label>Duration (in mins): </label>
             <input
@@ -201,10 +192,10 @@ export default class CreateWorkout extends Component {
               type="date"
               className="form-control"
               value={this.state.date}
-              onChange={this.onChangeWorkoutCompletedDate}
+              onChange={this.onChangeDate}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group" style={{ marginTop: "50px" }}>
             <input
               type="submit"
               value="Create workout"
