@@ -22,6 +22,9 @@ Amplify.configure(awsExports);
 const MyNav = styled(Nav)`
   z-index: 10;
   font-size: large;
+  a {
+    color: white;
+  }
 `;
 
 const WorkoutContainer = styled(Container)`
@@ -86,7 +89,7 @@ const App = () => {
   // return user ? (
   return (
     <Router>
-      <MyNav className="navbar navbar-expand-lg navbar-light bg-light">
+      <MyNav className="navbar navbar-expand-lg ">
         <Link to="/" className="navbar-brand">
           Workout Manager
         </Link>

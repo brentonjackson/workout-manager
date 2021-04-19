@@ -25,7 +25,7 @@ function Dashboard(props) {
   return (
     <Screen>
       <div>
-        <Quote>
+        <Quote className="border">
           <Card.Body>
             <blockquote className="blockquote mb-0">
               <p>{quotes[0].quote}</p>
