@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
 const UpdateDiv = styled.div`
-  justify-content: center;
   display: flex;
   flex-direction: column;
   color: white;

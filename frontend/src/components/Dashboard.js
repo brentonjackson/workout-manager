@@ -9,9 +9,14 @@ const Quote = styled(Card)`
 
 const Screen = styled.div`
   height: 100%;
+  padding-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 993px) {
+    padding-top: 200px;
+  }
 `;
 
 function Dashboard(props) {

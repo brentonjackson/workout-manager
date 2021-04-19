@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 
@@ -102,12 +103,34 @@ export default class CreateWorkout extends Component {
       duration: this.state.duration,
       exercises: this.state.exercises,
     };
+    newWorkout.exercises.forEach((exercise) =>
+      exercise.name.length === 0 ? alert("What do you call your exercise?") : ""
+    );
+    newWorkout.exercises.forEach((exercise) =>
+      exercise.sets === 0 ? alert("Cmon, you did at least one set.") : ""
+    );
 
-    axios
-      .post(baseUrl + "workouts/", newWorkout)
-      .then((res) => console.log(res.data));
+    let setNumbers = newWorkout.exercises.map((exercise) => exercise.sets);
+    console.log("setnums", setNumbers);
+    // const zeroSets = (element) => element === 0;
+    if (
+      newWorkout.exercises
+        .map((exercise) => exercise.name)
+        .every((name) => name.length > 0) &&
+      setNumbers.every((set) => set > 0)
+    ) {
+      axios
+        .post(baseUrl + "workouts/", newWorkout)
+        .then((res) => {
+          console.log(res.data);
+          this.setState({ redirect: "/workouts" });
+        })
+        .catch((error) => {
+          alert(error?.response?.data.split(":")[3]);
 
-    this.setState({ redirect: "/workouts" });
+          console.log(error?.response);
+        });
+    }
   }
 
   addExercise(e) {
@@ -170,12 +193,21 @@ export default class CreateWorkout extends Component {
               </div>
             );
           })}
-          <button onClick={this.addExercise}>Add exercise</button>
+          <Button size="sm" variant="primary" block onClick={this.addExercise}>
+            Add exercise
+          </Button>
           {this.state.exercises.length > 1 && (
-            <button onClick={this.removeExercise}>Remove exercise</button>
+            <Button
+              size="sm"
+              variant="secondary"
+              block
+              onClick={this.removeExercise}
+            >
+              Remove exercise
+            </Button>
           )}
 
-          <div className="form-group">
+          <div className="form-group" style={{ marginTop: "30px" }}>
             <label>Duration (in mins): </label>
             <input
               type="number"

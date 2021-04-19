@@ -19,10 +19,10 @@ const ResponsiveCardDeck = styled(CardDeck)`
 `;
 
 const Title = styled.h3`
-  margin: 25px 0 20px;
+  margin: 50px 0 50px;
 
   @media (min-width: 992px) {
-    margin: 0 0 50px;
+    margin: 50px 0 100px;
   }
 `;
 
@@ -142,7 +142,6 @@ export default class WorkoutList extends Component {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
           flexDirection: "column",
         }}
       >

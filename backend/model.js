@@ -14,7 +14,7 @@ const WorkoutSchema = new Schema({
   duration: Number,
   exercises: [
     {
-      name: { type: String, required: true },
+      name: { type: String, required: [true, "Please add exercise name."] },
       sets: Number,
       reps: Number,
       duration: Number,

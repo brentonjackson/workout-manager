@@ -31,7 +31,6 @@ const WorkoutContainer = styled(Container)`
   padding: 0px 15px;
   min-height: 80vh;
   display: flex;
-  align-items: center;
   justify-content: center;
 
   @media (min-width: 768px) {
