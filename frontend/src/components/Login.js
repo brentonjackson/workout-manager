@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import awsExports from "../aws-exports";
 import Amplify, { Auth } from "aws-amplify";
-import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+// import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 import {
-  AmplifyAuthenticator,
+  //   AmplifyAuthenticator,
   AmplifyGreetings,
-  AmplifySignOut,
-  withAuthenticator,
+  //   AmplifySignOut,
+  //   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+// import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 Amplify.configure(awsExports);
 

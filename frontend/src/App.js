@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,15 +9,15 @@ import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
-import Welcome from "./components/Welcome";
-import Profile from "./components/Profile";
-import Login from "./components/Login";
-import Amplify, { Auth, loadingBar } from "aws-amplify";
-import awsExports from "./aws-exports";
-import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
-import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+// import Welcome from "./components/Welcome";
+// import Profile from "./components/Profile";
+// import Login from "./components/Login";
+// import Amplify, { Auth, loadingBar } from "aws-amplify";
+// import awsExports from "./aws-exports";
+// import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
+// import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-Amplify.configure(awsExports);
+// Amplify.configure(awsExports);
 
 const MyNav = styled(Nav)`
   z-index: 10;
@@ -52,39 +52,28 @@ const WorkoutContainer = styled(Container)`
   }
 `;
 
-const WorkoutContainer2 = styled(Container)`
-  min-height: 100vh;
-  padding: 0px 15px;
-  color: white;
-  text-align: center;
-
-  @media (min-width: 768px) {
-    padding: 100px 100px 150px;
-  }
-`;
-
 const App = () => {
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
-  function handleAuthStateChange(state) {
-    if (state === "signedin" || state === "signedout") {
-      setUser(state);
-    }
-  }
+  // function handleAuthStateChange(state) {
+  //   if (state === "signedin" || state === "signedout") {
+  //     setUser(state);
+  //   }
+  // }
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const authenticatedUser = await Auth.currentAuthenticatedUser();
-        console.log(authenticatedUser);
-        setUser(authenticatedUser);
-      } catch {
-        console.log("The user isn't signed in.");
-      }
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const authenticatedUser = await Auth.currentAuthenticatedUser();
+  //       console.log(authenticatedUser);
+  //       setUser(authenticatedUser);
+  //     } catch {
+  //       console.log("The user isn't signed in.");
+  //     }
+  //   };
 
-    getUser();
-  }, []);
+  //   getUser();
+  // }, []);
 
   // return user ? (
   return (
@@ -133,7 +122,7 @@ const App = () => {
         <Route path="/workouts" exact component={WorkoutList} />
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
-        <Route path="/profile" component={Profile} />
+        {/* <Route path="/profile" component={Profile} /> */}
       </WorkoutContainer>
     </Router>
     // ) : (

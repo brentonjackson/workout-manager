@@ -91,7 +91,19 @@ export default class WorkoutList extends Component {
   constructor(props) {
     super(props);
     this.deleteWorkout = this.deleteWorkout.bind(this);
-    let workouts = this._loadWorkouts();
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://intense-ridge-39955.herokuapp.com/"
+        : "http://localhost:4000/";
+    let workouts = axios
+      .get(baseUrl + "workouts/", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        return response.data.workouts;
+      });
     this.state = { workouts: workouts, redirect: null, isLoading: false };
   }
 

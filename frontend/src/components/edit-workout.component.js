@@ -32,7 +32,7 @@ export default class EditWorkout extends Component {
       redirect: null,
       workout_title: "",
       duration: undefined,
-      exercises: [],
+      exercises: [{ name: "", sets: 0, reps: 0 }],
       date: new Date().toString(),
     };
 
@@ -65,6 +65,13 @@ export default class EditWorkout extends Component {
       .catch(function (error) {
         console.log(error);
       });
+  }
+
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state, callback) => {
+      return;
+    };
   }
 
   // methods to update state

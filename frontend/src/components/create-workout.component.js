@@ -110,18 +110,18 @@ export default class CreateWorkout extends Component {
     this.setState({ redirect: "/workouts" });
   }
 
-  addExercise() {
+  addExercise(e) {
+    e.preventDefault();
     let stateCopy = Object.assign({}, this.state);
     stateCopy.exercises.push({ name: "", sets: 0, reps: 0 });
     this.setState(stateCopy);
-    console.log(this.state.exercises);
   }
 
-  removeExercise() {
+  removeExercise(e) {
+    e.preventDefault();
     let stateCopy = Object.assign({}, this.state);
     stateCopy.exercises.pop();
     this.setState(stateCopy);
-    console.log(this.state.exercises);
   }
 
   render() {
@@ -155,7 +155,6 @@ export default class CreateWorkout extends Component {
                 <label>Exercise {i + 1} Sets:</label>
                 <input
                   type="number"
-                  min="1"
                   className="form-control"
                   value={this.state.exercises[i].sets}
                   onChange={this.onChangeExerciseSets.bind(this, i)}
@@ -163,7 +162,6 @@ export default class CreateWorkout extends Component {
                 <label>Exercise {i + 1} Reps:</label>
                 <input
                   type="number"
-                  min="1"
                   className="form-control"
                   value={this.state.exercises[i].reps}
                   onChange={this.onChangeExerciseReps.bind(this, i)}
