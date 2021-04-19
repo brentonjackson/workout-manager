@@ -10,6 +10,9 @@ const CreateDiv = styled.div`
   color: white;
   margin: 0px 0 50px;
 
+  .form-control {
+    box-shadow: -7px 7px 8px #00000026;
+  }
   @media (min-width: 426px) {
     width: 80%;
     max-width: 700px;

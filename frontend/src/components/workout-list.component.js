@@ -34,6 +34,7 @@ const Workout = ({ workout }) => (
       marginBottom: "15px",
       marginLeft: "0",
       flex: "auto",
+      boxShadow: "-7px 7px 8px #00000026",
     }}
   >
     <Card.Body>

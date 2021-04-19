@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Quote = styled(Card)`
   color: black;
+  box-shadow: -7px 7px 8px #00000026;
 `;
 
 const Screen = styled.div`

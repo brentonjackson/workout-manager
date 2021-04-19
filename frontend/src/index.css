@@ -67,33 +67,7 @@ code {
     monospace;
 }
 
-.done {
-  background-color: green;
-}
-
-.fullscreen-video-wrap {
-  position: absolute;
-  top: -15vh;
-  right: 0;
-  bottom: 0vh;
-  left: 0;
-  max-width: 100%;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.overlay {
-  background-color: black;
-  position: absolute;
-  top: -15vh;
-  right: 0;
-  bottom: 0vh;
-  left: 0;
-  z-index: 0;
-  opacity: 0.4;
-}
-
-.fullscreen-video-wrap video {
-  min-width: 100%;
-  min-height: 100%;
+button,
+input {
+  box-shadow: -7px 7px 8px #00000026;
 }
