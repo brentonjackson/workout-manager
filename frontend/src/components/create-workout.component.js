@@ -122,6 +122,7 @@ export default class CreateWorkout extends Component {
     let stateCopy = Object.assign({}, this.state);
     stateCopy.exercises.pop();
     this.setState(stateCopy);
+    console.log(this.state.exercises);
   }
 
   render() {
@@ -144,7 +145,7 @@ export default class CreateWorkout extends Component {
           </div>
           {this.state.exercises.map((element, i) => {
             return (
-              <div className="form-group">
+              <div className="form-group" key={i}>
                 <label>Exercise {i + 1} Name:</label>
                 <input
                   type="text"

@@ -54,7 +54,6 @@ export default class EditWorkout extends Component {
     axios
       .get(baseUrl + "workouts/" + this.props.match.params.id)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           workout_title: response.data.workout_title,
           duration: response.data.duration,
@@ -76,7 +75,6 @@ export default class EditWorkout extends Component {
 
   // methods to update state
   onChangeWorkoutTitle(e) {
-    console.log(e.target.value);
     this.setState({
       workout_title: e.target.value,
     });
@@ -121,7 +119,6 @@ export default class EditWorkout extends Component {
     axios
       .patch(baseUrl + "workouts/" + this.props.match.params.id, obj)
       .then((res) => {
-        console.log(res.data);
         this.setState({ redirect: "/workouts" });
       })
       .catch((error) => {
@@ -136,6 +133,7 @@ export default class EditWorkout extends Component {
   }
 
   deleteWorkout(e) {
+    e.preventDefault();
     const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://intense-ridge-39955.herokuapp.com/"
@@ -151,16 +149,13 @@ export default class EditWorkout extends Component {
       .delete(baseUrl + "workouts/" + this.props.match.params.id, obj)
       .then((res) => {
         console.log("Workout successfully deleted!");
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
+        this.setState({ redirect: "/workouts" });
       });
-    this.setState({ redirect: "/workouts" });
   }
 
   render() {
     if (this.state.redirect) {
+      setTimeout(500);
       return <Redirect to={this.state.redirect} />;
     }
     return (
@@ -188,7 +183,7 @@ export default class EditWorkout extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  value={this.state.exercises[i].name}
+                  value={this.state.exercises[i].name || ""}
                   onChange={this.onChangeExerciseName.bind(this, i)}
                 />
                 <label>Exercise {i + 1} Sets:</label>
@@ -196,7 +191,7 @@ export default class EditWorkout extends Component {
                   type="number"
                   min="1"
                   className="form-control"
-                  value={this.state.exercises[i].sets}
+                  value={this.state.exercises[i].sets || ""}
                   onChange={this.onChangeExerciseSets.bind(this, i)}
                 />
                 <label>Exercise {i + 1} Reps:</label>
@@ -204,7 +199,7 @@ export default class EditWorkout extends Component {
                   type="number"
                   min="1"
                   className="form-control"
-                  value={this.state.exercises[i].reps}
+                  value={this.state.exercises[i].reps || ""}
                   onChange={this.onChangeExerciseReps.bind(this, i)}
                 />
               </div>

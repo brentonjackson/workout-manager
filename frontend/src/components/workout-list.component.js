@@ -73,28 +73,14 @@ const Workout = ({ workout }) => (
   </Card>
 );
 
-// const WorkoutList = () => {
-// 	const [workouts, setWorkouts] = useState([])
-// 	const deleteWorkout = () => {
-// 		const obj = {
-// 			workout_title: this.state.workout_title,
-// 			workout_tags: this.state.workout_tags,
-//             workout_description: this.state.workout_description,
-//             workout_responsible: this.state.workout_responsible,
-//             workout_difficulty: this.state.workout_difficulty,
-//             workout_times_completed: this.state.workout_times_completed,
-//             workout_completed_date: this.state.workout_completed_date
-// 		}
-// 	}
-// }
 export default class WorkoutList extends Component {
   constructor(props) {
     super(props);
-    this.deleteWorkout = this.deleteWorkout.bind(this);
     const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://intense-ridge-39955.herokuapp.com/"
         : "http://localhost:4000/";
+
     let workouts = axios
       .get(baseUrl + "workouts/", {
         headers: {
@@ -104,34 +90,11 @@ export default class WorkoutList extends Component {
       .then((response) => {
         return response.data.workouts;
       });
-    this.state = { workouts: workouts, redirect: null, isLoading: false };
-  }
-
-  // method to delete entries
-  deleteWorkout(e) {
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://intense-ridge-39955.herokuapp.com/"
-        : "http://localhost:4000/";
-    const obj = {
-      workout_title: this.state.workout_title,
-      workout_tags: this.state.workout_tags,
-      workout_description: this.state.workout_description,
-      workout_responsible: this.state.workout_responsible,
-      workout_difficulty: this.state.workout_difficulty,
-      workout_times_completed: this.state.workout_times_completed,
-      workout_completed_date: this.state.workout_completed_date,
+    this.state = {
+      workouts: workouts,
+      redirect: null,
+      isLoading: false,
     };
-
-    axios
-      .delete(baseUrl + "workouts/delete/" + this.props.match.params.id, obj)
-      .then((res) => {
-        console.log("Student successfully deleted!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    this.setState({ redirect: "/" });
   }
 
   componentDidMount() {
@@ -143,14 +106,18 @@ export default class WorkoutList extends Component {
     this.timer = null;
   }
 
-  _loadWorkouts() {
+  //   componentDidUpdate() {
+  //     this._loadWorkouts();
+  //   }
+
+  async _loadWorkouts() {
     const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://intense-ridge-39955.herokuapp.com/"
         : "http://localhost:4000/";
     this.setState({ ...this.state, isLoading: true });
 
-    axios
+    await axios
       .get(baseUrl + "workouts/", {
         headers: {
           "Content-Type": "application/json",
@@ -158,11 +125,9 @@ export default class WorkoutList extends Component {
       })
       .then((response) => {
         this.setState({ workouts: response.data.workouts, isLoading: false });
-        console.log("workouts", this.state.workouts);
         return response.data.workouts;
       })
       .catch(function (error) {
-        console.log(error);
         if (this?.state) {
           this.setState({ ...this.state, isLoading: false });
         }
