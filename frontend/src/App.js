@@ -22,6 +22,7 @@ import Dashboard from "./components/Dashboard";
 const MyNav = styled(Nav)`
   z-index: 10;
   font-size: large;
+  font-family: "Open Sans";
   a {
     color: white;
   }
@@ -32,6 +33,7 @@ const WorkoutContainer = styled(Container)`
   min-height: 80vh;
   display: flex;
   justify-content: center;
+  font-family: "Open Sans";
 
   @media (min-width: 768px) {
     padding: 0px 50px 150px;
