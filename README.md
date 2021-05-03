@@ -1,4 +1,4 @@
-# Workout App (WIP)
+# Workout Manager (WIP)
 
 2021 Update: Using this app to experiment with authentication and other features as I build a better version. Currently using AWS Cognito and AWS Amplify for Google sign-in.
 
