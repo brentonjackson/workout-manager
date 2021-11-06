@@ -132,6 +132,21 @@ export default class WorkoutList extends Component {
           this.setState({ ...this.state, isLoading: false });
         }
       });
+      console.log(this.state)
+
+      let firstWorkouts = [];
+      let keys;
+      localStorage.length > 0 ?  keys = Object.keys(localStorage) : keys = null;
+      if (keys) {
+        let i = keys.length;
+        while ( i-- ) {
+          firstWorkouts.push( JSON.parse(localStorage.getItem(keys[i]) ));
+        }
+        firstWorkouts.forEach(workout => this.state.workouts.push(workout))
+        this.setState({workouts: [...this.state.workouts], isLoading: false}) ;
+        console.log(this.state)
+      }
+
   }
 
   render() {

@@ -119,7 +119,16 @@ export default class CreateWorkout extends Component {
         .every((name) => name.length > 0) &&
       setNumbers.every((set) => set > 0)
     ) {
-      axios
+      if (localStorage.length === 0) {
+        newWorkout._id = 1;
+        localStorage.setItem(1, JSON.stringify(newWorkout));
+        this.setState({ redirect: "/workouts" });
+      } else if (localStorage.length < 5) {
+        newWorkout._id = localStorage.length+1;
+        localStorage.setItem(localStorage.length+1, JSON.stringify(newWorkout) );
+        this.setState({ redirect: "/workouts" });
+      } else {
+        axios
         .post(baseUrl + "workouts/", newWorkout)
         .then((res) => {
           console.log(res.data);
@@ -127,9 +136,9 @@ export default class CreateWorkout extends Component {
         })
         .catch((error) => {
           alert(error?.response?.data.split(":")[3]);
-
           console.log(error?.response);
         });
+      }
     }
   }
 

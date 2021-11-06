@@ -26,7 +26,6 @@ const Title = styled.h3`
 export default class EditWorkout extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       redirect: null,
       workout_title: "",
@@ -44,25 +43,38 @@ export default class EditWorkout extends Component {
     this.deleteWorkout = this.deleteWorkout.bind(this);
   }
 
-  componentDidMount() {
-    const baseUrl =
+  componentDidMount(){   
+    if (localStorage.length > 0) {
+      let id = window.location.pathname.split("/")[2]
+      let keys = Object.keys(localStorage)
+      keys.forEach((key, index) => {
+        if (key === id) {
+          this.setState(JSON.parse(localStorage.getItem(key)));
+          this.setState({local: true});
+          this.state.local = true;
+        }
+      })
+    } 
+    if (!this.state.local) {
+      const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://intense-ridge-39955.herokuapp.com/"
         : "http://localhost:4000/";
 
-    axios
-      .get(baseUrl + "workouts/" + this.props.match.params.id)
-      .then((response) => {
-        this.setState({
-          workout_title: response.data.workout_title,
-          duration: response.data.duration,
-          exercises: response.data.exercises,
-          date: response.data.date,
+      axios
+        .get(baseUrl + "workouts/" + this.props.match.params.id)
+        .then((response) => {
+          this.setState({
+            workout_title: response.data.workout_title,
+            duration: response.data.duration,
+            exercises: response.data.exercises,
+            date: response.data.date,
+          });
+        })
+        .catch(function (error) {
+          console.log(error)
         });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      }
   }
 
   componentWillUnmount() {
@@ -103,57 +115,66 @@ export default class EditWorkout extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    if (this.state.local) {
+      localStorage.setItem(this.state._id, JSON.stringify(this.state));
+      this.setState({ redirect: "/workouts" });
+    } else {
+      const baseUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://intense-ridge-39955.herokuapp.com/"
+          : "http://localhost:4000/";
 
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://intense-ridge-39955.herokuapp.com/"
-        : "http://localhost:4000/";
+      const obj = {
+        workout_title: this.state.workout_title,
+        date: this.state.date,
+        duration: this.state.duration,
+        exercises: this.state.exercises,
+      };
+      axios
+        .patch(baseUrl + "workouts/" + this.props.match.params.id, obj)
+        .then((res) => {
+          this.setState({ redirect: "/workouts" });
+        })
+        .catch((error) => {
+          alert(
+            error?.response?.data.workouts.map((message) => {
+              return message.split(":")[1];
+            })
+          );
 
-    const obj = {
-      workout_title: this.state.workout_title,
-      date: this.state.date,
-      duration: this.state.duration,
-      exercises: this.state.exercises,
-    };
-    axios
-      .patch(baseUrl + "workouts/" + this.props.match.params.id, obj)
-      .then((res) => {
-        this.setState({ redirect: "/workouts" });
-      })
-      .catch((error) => {
-        alert(
-          error?.response?.data.workouts.map((message) => {
-            return message.split(":")[1];
-          })
-        );
-
-        console.log(error?.response);
-      });
+          console.log(error?.response);
+        });
+    }
   }
 
   deleteWorkout(e) {
     e.preventDefault();
-    const baseUrl =
+    if (this.state.local) {
+      localStorage.removeItem(this.state._id);
+      console.log("Workout successfully deleted!");
+      this.setState({ redirect: "/workouts" });
+    } else {
+      const baseUrl =
       process.env.NODE_ENV === "production"
         ? "https://intense-ridge-39955.herokuapp.com/"
         : "http://localhost:4000/";
-    const obj = {
-      workout_title: this.state.workout_title,
-      date: this.state.date,
-      duration: this.state.duration,
-      exercises: this.state.exercises,
-    };
-
-    axios
+      const obj = {
+        workout_title: this.state.workout_title,
+        date: this.state.date,
+        duration: this.state.duration,
+        exercises: this.state.exercises,
+      };
+      axios
       .delete(baseUrl + "workouts/" + this.props.match.params.id, obj)
       .then((res) => {
         console.log("Workout successfully deleted!");
         this.setState({ redirect: "/workouts" });
       });
+    }
   }
 
   render() {
-    if (this.state.redirect) {
+    if (this.state?.redirect) {
       setTimeout(500);
       return <Redirect to={this.state.redirect} />;
     }
@@ -175,31 +196,31 @@ export default class EditWorkout extends Component {
               onChange={this.onChangeWorkoutTitle}
             />
           </div>
-          {this.state.exercises.map((element, i) => {
+          {this.state.exercises.map((element, key) => {
             return (
               <div className="form-group">
-                <label>Exercise {i + 1} Name:</label>
+                <label>Exercise {key + 1} Name:</label>
                 <input
                   type="text"
                   className="form-control"
-                  value={this.state.exercises[i].name || ""}
-                  onChange={this.onChangeExerciseName.bind(this, i)}
+                  value={element.name || ""}
+                  onChange={this.onChangeExerciseName.bind(this, key)}
                 />
-                <label>Exercise {i + 1} Sets:</label>
+                <label>Exercise {key + 1} Sets:</label>
                 <input
                   type="number"
                   min="1"
                   className="form-control"
-                  value={this.state.exercises[i].sets || ""}
-                  onChange={this.onChangeExerciseSets.bind(this, i)}
+                  value={this.state.exercises[key].sets || ""}
+                  onChange={this.onChangeExerciseSets.bind(this, key)}
                 />
-                <label>Exercise {i + 1} Reps:</label>
+                <label>Exercise {key + 1} Reps:</label>
                 <input
                   type="number"
                   min="1"
                   className="form-control"
-                  value={this.state.exercises[i].reps || ""}
-                  onChange={this.onChangeExerciseReps.bind(this, i)}
+                  value={this.state.exercises[key].reps || ""}
+                  onChange={this.onChangeExerciseReps.bind(this, key)}
                 />
               </div>
             );
