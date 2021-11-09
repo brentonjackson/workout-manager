@@ -33,7 +33,7 @@ export default class CreateWorkout extends Component {
       redirect: null,
       workout_title: "",
       duration: undefined,
-      exercises: [{ name: "", sets: 0, reps: 0 }],
+      exercises: [{ name: "", sets: 0, reps: 0, weight: 0 }],
       date: new Date().toString(),
       exerciseFields: 1,
     };
@@ -42,6 +42,7 @@ export default class CreateWorkout extends Component {
     this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
     this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
     this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.onChangeExerciseWeight = this.onChangeExerciseWeight.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.removeExercise = this.removeExercise.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
@@ -70,11 +71,17 @@ export default class CreateWorkout extends Component {
     this.setState(stateCopy);
   }
   onChangeExerciseReps(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].reps = e.target.value;
+    this.setState(stateCopy);
+  }
+
+  onChangeExerciseWeight(i, e) {
     // this.setState({
     //   exercises: { reps: e.target.value },
     // });
     let stateCopy = Object.assign({}, this.state);
-    stateCopy.exercises[i].reps = e.target.value;
+    stateCopy.exercises[i].weight = e.target.value;
     this.setState(stateCopy);
   }
 
@@ -145,7 +152,7 @@ export default class CreateWorkout extends Component {
   addExercise(e) {
     e.preventDefault();
     let stateCopy = Object.assign({}, this.state);
-    stateCopy.exercises.push({ name: "", sets: 0, reps: 0 });
+    stateCopy.exercises.push({ name: "", sets: 0, reps: 0, weight: 0 });
     this.setState(stateCopy);
   }
 
@@ -198,6 +205,13 @@ export default class CreateWorkout extends Component {
                   className="form-control"
                   value={this.state.exercises[i].reps}
                   onChange={this.onChangeExerciseReps.bind(this, i)}
+                />
+                <label>Exercise {i + 1} Weight:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.exercises[i].weight}
+                  onChange={this.onChangeExerciseWeight.bind(this, i)}
                 />
               </div>
             );

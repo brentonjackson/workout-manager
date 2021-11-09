@@ -46,6 +46,10 @@ const Workout = ({ workout }) => (
               Exercise {i + 1}: {element.name}
               <br></br>
               {element.sets} sets x {element.reps} reps
+              <br></br>
+              {element.weight ? 
+              'Weight: ' + element.weight :  
+              null}
             </Card.Text>
           </>
         );

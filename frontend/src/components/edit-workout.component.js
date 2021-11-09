@@ -30,7 +30,7 @@ export default class EditWorkout extends Component {
       redirect: null,
       workout_title: "",
       duration: undefined,
-      exercises: [{ name: "", sets: 0, reps: 0 }],
+      exercises: [{ name: "", sets: 0, reps: 0, weight: 0 }],
       date: new Date().toString(),
     };
 
@@ -38,6 +38,7 @@ export default class EditWorkout extends Component {
     this.onChangeExerciseName = this.onChangeExerciseName.bind(this);
     this.onChangeExerciseSets = this.onChangeExerciseSets.bind(this);
     this.onChangeExerciseReps = this.onChangeExerciseReps.bind(this);
+    this.onChangeExerciseWeight = this.onChangeExerciseWeight.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteWorkout = this.deleteWorkout.bind(this);
@@ -106,7 +107,11 @@ export default class EditWorkout extends Component {
     stateCopy.exercises[i].reps = e.target.value;
     this.setState(stateCopy);
   }
-
+  onChangeExerciseWeight(i, e) {
+    let stateCopy = Object.assign({}, this.state);
+    stateCopy.exercises[i].weight = e.target.value;
+    this.setState(stateCopy);
+  }
   onChangeDuration(e) {
     this.setState({
       duration: e.target.value,
@@ -221,6 +226,13 @@ export default class EditWorkout extends Component {
                   className="form-control"
                   value={this.state.exercises[key].reps || ""}
                   onChange={this.onChangeExerciseReps.bind(this, key)}
+                />
+                <label>Exercise {key + 1} Weight:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.exercises[key].weight || ""}
+                  onChange={this.onChangeExerciseWeight.bind(this, key)}
                 />
               </div>
             );
