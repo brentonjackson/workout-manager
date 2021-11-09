@@ -1,5 +1,7 @@
 # Workout Manager (WIP)
 
+v1.1: Added localstorage for up to 5 workouts, so workouts are added to each users' browser instead of the one prod db.
+
 2021 Update: Using this app to experiment with authentication and other features as I build a better version. Currently using AWS Cognito and AWS Amplify for Google sign-in.
 
 One blocker I have with this version is how I've designed my database. The schema is very simple and not useful if I wanted to perform any kind of data analysis on my workouts, like tracking progression for a particular exercise for example.
