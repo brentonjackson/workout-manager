@@ -9,15 +9,6 @@ import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
-// import Welcome from "./components/Welcome";
-// import Profile from "./components/Profile";
-// import Login from "./components/Login";
-// import Amplify, { Auth, loadingBar } from "aws-amplify";
-// import awsExports from "./aws-exports";
-// import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
-// import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
-
-// Amplify.configure(awsExports);
 
 const MyNav = styled(Nav)`
   z-index: 10;
