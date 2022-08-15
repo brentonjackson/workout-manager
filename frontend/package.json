@@ -4,12 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/auth": "^3.4.26",
-    "@aws-amplify/ui-react": "^1.0.5",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
-    "aws-amplify": "^3.3.23",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "concurrently": "^6.0.0",

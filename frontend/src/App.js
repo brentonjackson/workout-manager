@@ -9,6 +9,7 @@ import CreateWorkout from "./components/create-workout.component";
 import EditWorkout from "./components/edit-workout.component";
 import WorkoutList from "./components/workout-list.component";
 import Dashboard from "./components/Dashboard";
+import WorkoutLog from "./components/WorkoutLog";
 // import Welcome from "./components/Welcome";
 // import Profile from "./components/Profile";
 // import Login from "./components/Login";
@@ -34,6 +35,7 @@ const WorkoutContainer = styled(Container)`
   display: flex;
   justify-content: center;
   font-family: "Open Sans";
+  width: 100%;
 
   @media (min-width: 768px) {
     padding: 0px 50px 150px;
@@ -96,6 +98,11 @@ const App = () => {
               </Link>
             </li>
             <li className="navbar-item">
+              <Link to="/log" className="nav-link">
+                Log
+              </Link>
+            </li>
+            <li className="navbar-item">
               {/* <Link to="/motivation" className="nav-link">
                 Motivation
               </Link> */}
@@ -123,6 +130,7 @@ const App = () => {
         <Route path="/workouts" exact component={WorkoutList} />
         <Route path="/edit/:id" component={EditWorkout} />
         <Route path="/create" component={CreateWorkout} />
+        <Route path="/log" component={WorkoutLog} />
         {/* <Route path="/profile" component={Profile} /> */}
       </WorkoutContainer>
     </Router>

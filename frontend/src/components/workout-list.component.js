@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Card, CardDeck } from "react-bootstrap";
 import styled from "styled-components";
+import DataGrid from 'react-data-grid';
 
 const ResponsiveCardDeck = styled(CardDeck)`
   @media (max-width: 1199px) {
@@ -77,6 +78,27 @@ const Workout = ({ workout }) => (
   </Card>
 );
 
+const columns = [
+  { key: '_id', name: 'ID', defaultVisible: false },
+  { key: 'workout_title', name: 'Title' },
+  { key: 'duration', name: 'Duration'},
+  { key: 'date', name: 'Date', sortable: true, 
+    formatter({ row }) {
+      return <>{new Date(row.date).toLocaleDateString("en-US", {
+        timeZone: "UTC",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}</>;
+    }},
+];
+
+const rows = [
+  { id: 0, title: 'Example' },
+  { id: 1, title: 'Demo' }
+];
+
 export default class WorkoutList extends Component {
   constructor(props) {
     super(props);
@@ -98,6 +120,8 @@ export default class WorkoutList extends Component {
       workouts: workouts,
       redirect: null,
       isLoading: false,
+      grid: true,
+      table: false
     };
   }
 
@@ -113,6 +137,11 @@ export default class WorkoutList extends Component {
   //   componentDidUpdate() {
   //     this._loadWorkouts();
   //   }
+
+  toggleGrid() {
+    console.log(this.state)
+    this.setState( {grid: !this.state.grid, table: !this.state.table})
+  }
 
   async _loadWorkouts() {
     const baseUrl =
@@ -162,23 +191,40 @@ export default class WorkoutList extends Component {
         style={{
           display: "flex",
           flexDirection: "column",
+          width: "100%"
         }}
       >
         <Title className="text-center text-white"> Workouts</Title>
-        <ResponsiveCardDeck>
-          <h4 className="text-center text-white">
-            {this.state.isLoading ? "Loading workouts....." : ""}
-          </h4>
-          {this.state.isLoading
-            ? ""
-            : this.state.workouts
-            ? this.state.workouts.length > 0
-              ? this.state.workouts.map((currentWorkout, i) => (
-                  <Workout workout={currentWorkout} key={i} />
-                ))
-              : "Go ahead and track a workout!"
-            : ""}
+        <div className="button-container" style={{marginBottom: '10px'}}>
+        <button type="button" class={this.state.grid ? "active btn btn-outline-success" : "btn btn-outline-success"}  onClick={this.toggleGrid.bind(this)}>Grid</button>
+        <button type="button" class={this.state.table ? "active btn btn-outline-primary" : "btn btn-outline-primary"}  onClick={this.toggleGrid.bind(this)}>Table</button>
+        </div>
+        {this.state.grid ? 
+          <ResponsiveCardDeck>
+            <h4 className="text-center text-white">
+              {this.state.isLoading ? "Loading workouts....." : ""}
+            </h4>
+            {this.state.isLoading
+              ? ""
+              : this.state.workouts
+              ? this.state.workouts.length > 0
+                ? this.state.workouts.map((currentWorkout, i) => (
+                    <Workout workout={currentWorkout} key={i} />
+                  ))
+                : <p className="text-white">"Go ahead and track a workout!"</p>
+              : ""}
         </ResponsiveCardDeck>
+        : <DataGrid 
+            columns={columns} 
+            rows={this.state?.workouts} 
+            defaultColumnOptions={{
+              sortable: true,
+              resizable: true
+            }} 
+            sortable={true} 
+           />
+        }
+        
       </div>
     );
   }

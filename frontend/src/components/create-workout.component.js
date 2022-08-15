@@ -201,7 +201,7 @@ export default class CreateWorkout extends Component {
                 />
                 <label>Exercise {i + 1} Reps:</label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
                   value={this.state.exercises[i].reps}
                   onChange={this.onChangeExerciseReps.bind(this, i)}
